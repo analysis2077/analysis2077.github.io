@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../data/site';
+
+const education = [
+  { period: '2022.09 – 2026.07', school: '西交利物浦大学', en: "Xi'an Jiaotong-Liverpool University (XJTLU)", note: 'BSc Applied Mathematics' },
+  { period: '2026.10 – 至今', school: '慕尼黑工业大学', en: 'Technical University of Munich (TUM)', note: 'MSc Mathematics' },
+];
+const interests = ['偏微分方程', '调和分析', '泛函分析', '数值计算'];
+---
+<Base title="关于">
+  <PageHero
+    en="About"
+    zh="关于站主"
+    desc="分析与偏微分方程方向的数学研究生，现就读于慕尼黑工业大学（TUM）。这里是站主的经历、研究方向与联系方式。"
+    crumbs={[{ label: '首页', href: '/' }, { label: '关于' }]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Personal File</span><span>NO.001</span></div>
+        <div class="dos-photo">
+          <div class="avatar-box">
+            <img class="cover" src="/avatar.jpg" alt="站主头像" />
+          </div>
+          <span class="plate">Analysis2077</span>
+          <div class="dos-contact">
+            <span>✉ <a href="mailto:Liangyu.Chen.math@outlook.com">Liangyu.Chen.math@outlook.com</a></span>
+            <span>📺 <a href="https://space.bilibili.com/1684869489" target="_blank" rel="noopener">B 站主页</a></span>
+          </div>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">公开署名</span><span class="dos-v">{SITE.owner}</span></div>
+          <div class="dos-row"><span class="dos-k">一句话介绍</span><span class="dos-v">分析与偏微分方程方向的数学研究生，目前在慕尼黑工业大学就读数学硕士。</span></div>
+          <div class="dos-row"><span class="dos-k">个人简介</span><span class="dos-v">从西交利物浦大学的应用数学，到慕尼黑工业大学的数学硕士，我目前正在分析与偏微分方程的方向上不断探索。我的关注点涵盖偏微分方程、调和分析、泛函分析与数值计算。我喜欢在理论与计算之间寻找联系，日常也会在 B 站分享数学学习心得，希望能在这里记录我的学术成长。</span></div>
+          <div class="dos-row">
+            <span class="dos-k">教育经历</span>
+            <span class="dos-v">
+              {education.map((e) => (
+                <span style="display:block;margin:2px 0;">
+                  {e.period} · {e.school} <span style="color:var(--muted);font-size:12.5px;">{e.en}</span> · {e.note}
+                </span>
+              ))}
+            </span>
+          </div>
+          <div class="dos-row">
+            <span class="dos-k">关注方向</span>
+            <span class="dos-v">
+              {interests.map((t) => <span class="tag" style="margin:2px 4px 2px 0;">{t}</span>)}
+              <span style="font-size:13px;color:var(--muted);">详见 <a href="/notes/">个人笔记目录</a></span>
+            </span>
+          </div>
+          <div class="dos-row"><span class="dos-k">GitHub</span><span class="dos-v muted">待注册 —— 上线前完成</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

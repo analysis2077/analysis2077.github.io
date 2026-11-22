@@ -1,0 +1,20 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+// 子页面顶部横幅；theme: '' | 'gehenna' | 'trinity'
+interface Props {
+  en: string;
+  zh: string;
+  desc?: string;
+  crumbs: { label: string; href?: string }[];
+  theme?: '' | 'gehenna' | 'trinity';
+}
+const { en, zh, desc, crumbs, theme = '' } = Astro.props;
+---
+<section class:list={['page-hero', theme && `th-${theme}`]}>
+  <div class="wrap">
+    <Breadcrumb items={crumbs} />
+    <p class="ph-en">{en}</p>
+    <h1>{zh}</h1>
+    {desc && <p class="ph-desc">{desc}</p>}
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+import type { Course } from '../data/courses';
+const { course }: { course: Course } = Astro.props;
+const stClass = course.status === '整理中' ? 'st-wip' : course.status === '阶段完成' ? 'st-done' : 'st-arch';
+---
+<div class:list={['cut-card', 'course-card', 'hov']}>
+  {course.href && (
+    <a class="card-cover" href={course.href} aria-label={`${course.code} ${course.title}`}></a>
+  )}
+  <div class="cc-top">
+    <span class="cc-code">{course.code}</span>
+    <span class="tag">{course.subject}</span>
+    {course.sample && <span class="st st-new">样本</span>}
+  </div>
+  <h3 class="cc-title">{course.title}</h3>
+  {course.titleZh && <p class="cc-zh">{course.titleZh}</p>}
+  <div class="cc-meta">
+    <span class="tag">{course.stage}</span>
+    <span class="tag">{course.year} · {course.semester}</span>
+  </div>
+  <p class="cc-zh">{course.blurb}</p>
+  <div class="cc-foot">
+    <span class={course.sample ? 'cc-sample' : 'cc-ph'}>
+      {course.sample ? '✓ 真实样本' : '占位示例'}
+    </span>
+    <span class={`st ${stClass}`}>{course.status}</span>
+  </div>
+</div>

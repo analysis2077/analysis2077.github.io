@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { DISCIPLINES } from '../../data/notes';
+---
+<Base title="个人笔记">
+  <PageHero
+    en="Personal Notes"
+    zh="个人笔记"
+    desc="按约 10–15 个大学科组织的长期笔记档案：学科 → 专题 / 分册 → 章节。学科入口全部展示，不因条目少而分页（规划 §6.1）。"
+    crumbs={[{ label: '首页', href: '/' }, { label: '个人笔记' }]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="grid-3">
+        {DISCIPLINES.map((d) => d.built ? (
+          <a class:list={['cut-card', 'disc-card', d.theme && `th-${d.theme}`]} href={`/notes/${d.id}/`}>
+            <span class="dc-en">{d.en}</span>
+            <h3>{d.name}</h3>
+            <span class="dc-count">{d.count > 0 ? `已收录 ${d.count} 册` : '暂无条目 · 目录页待创建'}</span>
+            <span class="dc-arrow">→</span>
+          </a>
+        ) : (
+          <div class:list={['cut-card', 'disc-card', d.theme && `th-${d.theme}`]}>
+            <span class="dc-soon">待创建</span>
+            <span class="dc-en">{d.en}</span>
+            <h3>{d.name}</h3>
+            <span class="dc-count">暂无条目</span>
+          </div>
+        ))}
+      </div>
+    </section>
+    <section class="sec" style="padding-top:8px;">
+      <div class="note-box">
+        <b>占位说明：</b>学科词表来自规划 §6.1 的示例（数学分析、实分析与测度……），
+        最终名称与合并方式以站主实际笔记清单为准（附录 B2）。每个学科即使只有一份笔记也保留目录页，便于日后扩充。
+      </div>
+    </section>
+  </div>
+</Base>

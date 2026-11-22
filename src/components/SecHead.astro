@@ -1,0 +1,13 @@
+---
+// 区块标题：编号 + 中文标题 + 英文小字
+const { no, zh, en }: { no: string; zh: string; en: string } = Astro.props;
+---
+<div class="sec-head">
+  <span class="sec-no">{no}</span>
+  <div>
+    <p class="sec-en">{en}</p>
+    <h2>{zh}</h2>
+  </div>
+  <span class="sec-line"></span>
+  <span class="sec-star">✦</span>
+</div>

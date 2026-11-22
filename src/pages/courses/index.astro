@@ -1,0 +1,80 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import { COURSES, STAGES, SUBJECTS } from '../../data/courses';
+---
+<Base title="课程笔记">
+  <PageHero
+    en="Courses"
+    zh="课程笔记"
+    desc="学校课程资料库：按学段与数学主题浏览，支持课程代码 / 题名检索。相同课程不同学期的资料归入同一课程主页。"
+    crumbs={[{ label: '首页', href: '/' }, { label: '课程笔记' }]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="filters">
+        <input class="f-in" id="f-q" type="search" placeholder="搜索课程代码 / 题名，如 MTH118 或 Analysis…" />
+        <select class="f-sel" id="f-stage">
+          <option value="">全部学段</option>
+          {STAGES.map((s) => <option value={s}>{s}</option>)}
+        </select>
+        <select class="f-sel" id="f-subject">
+          <option value="">全部主题</option>
+          {SUBJECTS.map((s) => <option value={s}>{s}</option>)}
+        </select>
+        <button class="f-reset" id="f-reset">清除筛选</button>
+        <span class="f-count" id="f-count"></span>
+      </div>
+
+      <div class="grid-3" id="course-grid">
+        {COURSES.map((c) => (
+          <div data-card data-stage={c.stage} data-subject={c.subject} data-title={`${c.code} ${c.title} ${c.titleZh ?? ''}`.toLowerCase()}>
+            <CourseCard course={c} />
+          </div>
+        ))}
+      </div>
+
+      <div class="empty" id="no-result" style="display:none; margin-top:18px;">
+        <span class="e-star">✦</span>
+        <h3>没有匹配的课程</h3>
+        <p>当前筛选条件下没有结果。试试清除筛选，或更换关键词。</p>
+      </div>
+    </section>
+    <section class="sec" style="padding-top:8px;">
+      <div class="note-box">
+        <b>占位说明：</b>目前除 MTH118 为真实样本外，其余均为占位示例条目，仅用于展示版式与筛选交互。
+        真实课程清单（约 20 门）按规划附录 B1 提供后批量替换；条目超过 12 门时启用列表分页（规划 §4.1）。
+      </div>
+    </section>
+  </div>
+</Base>
+<script>
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-card]'));
+  const q = document.getElementById('f-q') as HTMLInputElement;
+  const stage = document.getElementById('f-stage') as HTMLSelectElement;
+  const subject = document.getElementById('f-subject') as HTMLSelectElement;
+  const count = document.getElementById('f-count')!;
+  const noResult = document.getElementById('no-result')!;
+
+  function apply() {
+    let shown = 0;
+    for (const card of cards) {
+      const ok =
+        (!stage.value || card.dataset.stage === stage.value) &&
+        (!subject.value || card.dataset.subject === subject.value) &&
+        (!q.value.trim() || card.dataset.title!.includes(q.value.trim().toLowerCase()));
+      card.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    }
+    count.innerHTML = `共 <b>${shown}</b> 门课程`;
+    noResult.style.display = shown === 0 ? '' : 'none';
+  }
+  q.addEventListener('input', apply);
+  stage.addEventListener('change', apply);
+  subject.addEventListener('change', apply);
+  document.getElementById('f-reset')!.addEventListener('click', () => {
+    q.value = ''; stage.value = ''; subject.value = ''; apply();
+  });
+  apply();
+</script>

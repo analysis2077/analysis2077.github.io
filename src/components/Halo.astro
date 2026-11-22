@@ -1,0 +1,8 @@
+---
+// Blue Archive 风格光环装饰（SVG）
+const { w = 92, h = 40 } = Astro.props;
+---
+<svg class="halo" viewBox="0 0 120 52" width={w} height={h} aria-hidden="true">
+  <ellipse cx="60" cy="26" rx="54" ry="19" fill="none" stroke="#4CB3FF" stroke-width="4.5" />
+  <ellipse cx="60" cy="26" rx="54" ry="19" fill="none" stroke="#EAF7FF" stroke-width="1.5" transform="translate(0,-2.5)" />
+</svg>

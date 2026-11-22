@@ -1,0 +1,97 @@
+---
+import katex from 'katex';
+import Base from '../../../../layouts/Base.astro';
+import PageHero from '../../../../components/PageHero.astro';
+import SecHead from '../../../../components/SecHead.astro';
+import Halo from '../../../../components/Halo.astro';
+import { BASIC_PDE } from '../../../../data/notes';
+
+const heat = katex.renderToString('\\partial_t u - \\Delta u = 0 \\quad (\\Omega \\times (0,\\infty))');
+const wave = katex.renderToString('\\partial_{tt} u - c^2 \\Delta u = 0');
+const sobolev = katex.renderToString('W^{1,2}(\\Omega) = \\{\\, u \\in L^2(\\Omega) : \\partial_i u \\in L^2(\\Omega) \\,\\}');
+---
+<Base title={BASIC_PDE.title}>
+  <PageHero
+    theme="gehenna"
+    en="Volume File"
+    zh={BASIC_PDE.title}
+    desc="偏微分方程基础 —— The Unfinished Way 系列第一册 · 302 页样本（文件待导入）"
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '个人笔记', href: '/notes/' },
+      { label: '偏微分方程', href: '/notes/pde/' },
+      { label: 'Basic PDE' },
+    ]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class:list={['dossier', 'th-gehenna']}>
+        <div class="dos-strip"><span>Volume Record</span><span>{BASIC_PDE.part}</span></div>
+        <div class="dos-photo">
+          <Halo />
+          <span class="plate">GEHENNA</span>
+          <span class="art-cap" style="position:static;transform:none;">封面占位 · 等待素材</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">原题名</span><span class="dos-v">{BASIC_PDE.title}</span></div>
+          <div class="dos-row"><span class="dos-k">中文简介</span><span class="dos-v">{BASIC_PDE.titleZh}：从分析准备与特征线出发，经二阶方程分类与三类经典方程，到弱导数与 Sobolev 空间。</span></div>
+          <div class="dos-row"><span class="dos-k">系列 / 分册</span><span class="dos-v">{BASIC_PDE.series} · {BASIC_PDE.part}</span></div>
+          <div class="dos-row"><span class="dos-k">主学科 / 标签</span><span class="dos-v">偏微分方程 · <span class="tag th-gehenna">Gehenna 主题</span></span></div>
+          <div class="dos-row"><span class="dos-k">语言</span><span class="dos-v">{BASIC_PDE.lang}</span></div>
+          <div class="dos-row"><span class="dos-k">先修知识</span><span class="dos-v">{BASIC_PDE.prereq}</span></div>
+          <div class="dos-row"><span class="dos-k">适读对象</span><span class="dos-v">{BASIC_PDE.audience}</span></div>
+          <div class="dos-row"><span class="dos-k">版本 / 范围</span><span class="dos-v">{BASIC_PDE.version} · 样本共 {BASIC_PDE.pages} 页</span></div>
+          <div class="dos-row"><span class="dos-k">整理状态</span><span class="dos-v"><span class="st st-wip">整理中</span></span></div>
+        </div>
+      </div>
+      <p style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn disabled" disabled>📖 在线阅读（待提供）</button>
+        <button class="btn btn-ghost disabled" disabled>⬇ 下载 PDF（待提供）</button>
+      </p>
+    </section>
+
+    <section class="sec" style="padding-top:10px;">
+      <SecHead no="01" en="Contents" zh="核心目录" />
+      <div class="chap-list">
+        {BASIC_PDE.chapters.map((c) => (
+          <div class="chap-item">
+            <span>{c.name}</span>
+            <span class="ci-page">PDF 第 X 页 · {c.page}</span>
+          </div>
+        ))}
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        章节目录将先从 PDF 书签 / 目录提取，再由站主核对；<b>英文原题名保留</b>，可加中文说明（规划 §6.3）。
+        仅对已提供网页正文的章节生成网页阅读页，其余章节定位到 PDF 文件页并显示可手动查找的页码。
+      </div>
+    </section>
+
+    <section class="sec">
+      <SecHead no="02" en="Math Preview · KaTeX" zh="网页数学环境预览" />
+      <div class="grid-2" style="gap:14px;">
+        <div class="formula-box"><span class="fx-label">热方程 HEAT</span><span set:html={heat} /></div>
+        <div class="formula-box"><span class="fx-label">波动方程 WAVE</span><span set:html={wave} /></div>
+      </div>
+      <div class="formula-box" style="margin-top:14px;"><span class="fx-label">SOBOLEV 空间</span><span set:html={sobolev} /></div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:10px;">
+        网页正文数学排版采用 KaTeX（规划 §12.1）；复杂公式在自身容器内横向滚动，不撑宽页面（规划 §7.2）。
+      </p>
+    </section>
+
+    <section class="sec">
+      <SecHead no="03" en="Related" zh="相关内容" />
+      <div class="grid-2">
+        <a class="cut-card vol-card" href="/courses/mth118/">
+          <span class="vc-series">相关课程</span>
+          <h3>MTH118 · Analysis II</h3>
+          <p class="vc-zh">本科 · 2025–2026 S2 · 分析</p>
+        </a>
+        <div class="cut-card vol-card">
+          <span class="vc-series">勘误 / 修订记录</span>
+          <h3 style="color:var(--muted);">暂无</h3>
+          <p class="vc-zh">修订记录将保留日期、版本与主要变化（规划 §9.3）。</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

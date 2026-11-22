@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="搜索">
+  <PageHero
+    en="Search"
+    zh="站内搜索"
+    desc="覆盖课程代码、原题名、中文别名、介绍、标签及网页正文（规划 §11.2）。"
+    crumbs={[{ label: '首页', href: '/' }, { label: '搜索' }]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="filters" style="padding:20px;">
+        <input class="f-in" type="search" placeholder="试试：偏微分方程 / Partial Differential Equations / PDE / MTH118 …" disabled />
+        <button class="btn disabled" disabled>搜索</button>
+      </div>
+      <div class="empty" style="margin-top:20px;">
+        <span class="e-star">✦</span>
+        <h3>搜索将在首批真实内容导入后启用</h3>
+        <p>
+          方案为 Pagefind 静态索引：构建时生成索引，访客在浏览器内完成查询，无需服务器；
+          将评估中文分词，让中文主题、英文题名与课程代码都能进入预期结果。
+          PDF 正文与扫描件 OCR 检索作为后续任务单独验收。
+        </p>
+      </div>
+    </section>
+  </div>
+</Base>

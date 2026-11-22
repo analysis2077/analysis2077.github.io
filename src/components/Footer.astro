@@ -1,0 +1,35 @@
+---
+import { SITE } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="f-brand">
+          <img src="/schale.png" alt="夏莱标志" />
+          {SITE.name}
+        </div>
+        <p>{SITE.tagline}<br />课程 · 笔记 · 随笔 · 讲课 · 作品 —— 我会尽我所能一直走下去，走到一切的尽头。</p>
+      </div>
+      <div>
+        <h4>栏目</h4>
+        <ul>
+          {SITE.nav.map((n) => <li><a href={n.href}>{n.zh}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h4>关于本站</h4>
+        <ul>
+          <li><a href="/search/">搜索</a></li>
+          <li><a href="/about/">关于站主</a></li>
+          <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub（待注册）</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bar">
+      <span>© {year} {SITE.owner} · The Unfinished Way</span>
+      <span>Powered by Astro ✦ 托管计划：GitHub Pages</span>
+    </div>
+  </div>
+</footer>

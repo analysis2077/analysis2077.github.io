@@ -1,0 +1,29 @@
+---
+import { SITE } from '../data/site';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="/" aria-label="返回首页">
+      <img class="brand-logo" src="/schale.png" alt="夏莱标志" />
+      <span class="brand-t"><b>{SITE.name}</b><i>MATH ARCHIVE</i></span>
+    </a>
+    <button class="burger" id="burger" aria-label="打开菜单">☰</button>
+    <nav class="nav" id="nav" aria-label="主导航">
+      {SITE.nav.map((item) => (
+        <a href={item.href} class:list={['nav-l', { act: isActive(item.href) }]}>
+          <span>{item.zh}</span>
+        </a>
+      ))}
+      <a href="/search/" class="nav-l nav-search" aria-label="搜索" title="搜索">
+        <span>🔍</span>
+      </a>
+    </nav>
+  </div>
+</header>
+<script>
+  const burger = document.getElementById('burger');
+  const nav = document.getElementById('nav');
+  burger?.addEventListener('click', () => nav?.classList.toggle('open'));
+</script>

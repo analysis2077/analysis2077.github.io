@@ -1,0 +1,55 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+import { SERIES } from '../../../data/notes';
+---
+<Base title="偏微分方程 · 个人笔记">
+  <PageHero
+    theme="gehenna"
+    en="Discipline · PDE"
+    zh="偏微分方程"
+    desc="Partial Differential Equations —— 专题、分册与关联系列。本学科采用 Gehenna 红紫学院主题（规划 §10.1：个人专题可指定学院配色）。"
+    crumbs={[{ label: '首页', href: '/' }, { label: '个人笔记', href: '/notes/' }, { label: '偏微分方程' }]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <SecHead no="01" en="Volumes" zh="专题 / 分册" />
+      <div class="grid-2">
+        <a class="cut-card vol-card" href="/notes/pde/basic-pde/">
+          <span class="vc-series">THE UNFINISHED WAY · PART I</span>
+          <h3>Basic Partial Differential Equations</h3>
+          <p class="vc-zh">偏微分方程基础 · 302 页样本 · 分析准备 → Sobolev 空间</p>
+          <div class="cc-meta">
+            <span class="tag th-gehenna">偏微分方程</span>
+            <span class="tag">英文</span>
+            <span class="st st-wip">整理中</span>
+          </div>
+          <div class="cc-foot"><span>✓ 真实样本</span><span>详情 →</span></div>
+        </a>
+        <div class="cut-card vol-card">
+          <span class="vc-series">待扩充</span>
+          <h3 style="color:var(--muted);">更多分册整理中</h3>
+          <p class="vc-zh">新分册将自动进入本学科目录与所属系列页（规划 §6.2）。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <SecHead no="02" en="Series" zh="所属系列" />
+      <div class="grid-2">
+        {SERIES.map((s) => (
+          <div class="cut-card vol-card">
+            <span class="vc-series">CROSS-DISCIPLINE SERIES</span>
+            <h3>{s.name}</h3>
+            <p class="vc-zh">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+      <div class="note-box" style="margin-top:18px;">
+        <b>结构说明（规划 §6.2）：</b>大学科 / 系列 / 专题分册 / 章节四个概念分别维护；
+        每册只设一个主学科（可加标签），系列可跨学科。同一本笔记在系列页与学科页两处引用同一条记录。
+      </div>
+    </section>
+  </div>
+</Base>
