@@ -1,0 +1,104 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SecHead from '../../components/SecHead.astro';
+import type { Seminar, SingleLecture } from '../../data/talks';
+import { SEMINARS, LECTURES } from '../../data/talks';
+
+export async function getStaticPaths() {
+  return [
+    ...SEMINARS.map((s: Seminar) => ({ params: { id: s.id }, props: { seminar: s } })),
+    ...LECTURES.map((l: SingleLecture) => ({ params: { id: l.id }, props: { lecture: l } })),
+  ];
+}
+const { seminar, lecture } = Astro.props as { seminar?: Seminar; lecture?: SingleLecture };
+const isSeminar = !!seminar;
+const name = seminar?.name ?? lecture?.title ?? '';
+const desc = seminar?.desc ?? lecture?.desc ?? '';
+const videos = seminar?.videos ?? lecture?.videos ?? [];
+const materials = seminar?.materials ?? [];
+---
+<Base title={`${name} · 讲课与讨论班`}>
+  <PageHero
+    en={isSeminar ? 'Seminar' : 'Single Talk'}
+    zh={name}
+    desc={isSeminar
+      ? `${seminar!.tag}${seminar!.period ? ` · ${seminar!.period}` : ''} —— 讨论班条目：介绍 · 材料 · 讲课视频`
+      : `单次讲课活动条目`}
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '讲课与讨论班', href: '/talks/' },
+      { label: name },
+    ]}
+  />
+  <div class="wrap">
+    <!-- 讨论班介绍 -->
+    <section class="sec">
+      <SecHead no="01" en="Introduction" zh={isSeminar ? '讨论班介绍' : '活动介绍'} />
+      {isSeminar && (
+        <div class="dossier">
+          <div class="dos-strip"><span>Seminar Record</span><span>{seminar!.tag}</span></div>
+          <div class="dos-info">
+            <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">{seminar!.name}{seminar!.en && <> · <i style="color:var(--muted);">{seminar!.en}</i></>}</span></div>
+            {seminar!.period && <div class="dos-row"><span class="dos-k">举办时段</span><span class="dos-v">{seminar!.period}</span></div>}
+            {seminar!.org && <div class="dos-row"><span class="dos-k">组织 / 地点</span><span class="dos-v">{seminar!.org}</span></div>}
+            <div class="dos-row"><span class="dos-k">材料</span><span class="dos-v">{materials.length} 份</span></div>
+            <div class="dos-row"><span class="dos-k">讲课视频</span><span class="dos-v">{videos.length > 0 ? `${videos.length} 段（外链）` : '暂无 —— 视频不是讨论班的必需项'}</span></div>
+          </div>
+        </div>
+      )}
+      <p class="intro-p" style="margin-top:16px;">{desc}</p>
+    </section>
+
+    <!-- 讨论班材料 -->
+    {isSeminar && materials.length > 0 && (
+      <section class="sec">
+        <SecHead no="02" en="Materials" zh="讨论班材料" />
+        <div class="doc-list">
+          {materials.map((m) => (
+            <details>
+              <summary>
+                <span>{m.label}</span>
+                <span class="sm-en">{m.pending ? 'PENDING' : 'FILE'}</span>
+              </summary>
+              <div class="file-row">
+                <span class="fr-name">{m.desc ?? m.label}</span>
+                <span class="fr-act">
+                  {m.href
+                    ? <a class="btn btn-sm" href={m.href} target={m.href.startsWith('http') ? '_blank' : undefined} rel="noopener">打开</a>
+                    : <span class="fr-pending">待整理 —— 整理好后在此提供入口</span>}
+                </span>
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- 讲课视频 -->
+    <section class="sec">
+      <SecHead no={isSeminar ? '03' : '02'} en="Lecture Videos" zh="讲课视频" />
+      {videos.length > 0 ? (
+        <div class="grid-2">
+          {videos.map((v) => (
+            <a class="cut-card vol-card" href={v.url} target="_blank" rel="noopener">
+              <span class="vc-series">{v.date ?? 'VIDEO'}</span>
+              <h3>🎬 {v.title}</h3>
+              <p class="vc-zh">{v.note ?? '在 B 站观看'}</p>
+              <div class="cc-foot"><span>外链 · B 站</span><span>观看 →</span></div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty">
+          <span class="e-star">🎬</span>
+          <h3>暂无讲课视频</h3>
+          <p>{isSeminar ? '本讨论班暂无讲课视频——视频不是讨论班的必需项；有录制后将以链接形式挂载在此。' : '该活动暂无视频链接。'}</p>
+        </div>
+      )}
+    </section>
+  </div>
+  <style>
+    .intro-p { max-width: 52em; color: var(--ink); line-height: 1.9; }
+  </style>
+</Base>

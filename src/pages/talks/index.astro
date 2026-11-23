@@ -2,43 +2,68 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import SecHead from '../../components/SecHead.astro';
+import { SEMINARS, LECTURES } from '../../data/talks';
 ---
 <Base title="讲课与讨论班">
   <PageHero
     en="Talks & Seminars"
     zh="讲课与讨论班"
-    desc="视频存放于 B 站或其他平台，本站保存外链与配套资料。单次讲课建立活动条目；讨论班建立系列页，按场次排列（规划 §8.3）。"
+    desc="以讨论班为单位的条目式归档：每个讨论班一页——介绍、材料、讲课视频（链接形式，没有也没关系）。视频存放于 B 站等平台，本站保存外链与配套资料。"
     crumbs={[{ label: '首页', href: '/' }, { label: '讲课与讨论班' }]}
   />
   <div class="wrap">
     <section class="sec">
-      <SecHead no="01" en="Structure" zh="层级结构" />
-      <table class="tbl">
-        <thead>
-          <tr><th>层级</th><th>必要信息</th><th>可增加的信息</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><b>单次讲课</b></td><td>标题、简介、平台与链接</td><td>日期、讲义、幻灯片、相关笔记</td></tr>
-          <tr><td><b>讨论班系列</b></td><td>系列名、主题、场次目录</td><td>先修知识、学习目标、参考书</td></tr>
-          <tr><td><b>一次场次</b></td><td>场次标题、视频或「待上传」状态</td><td>分段链接、讲者、讲义和笔记</td></tr>
-        </tbody>
-      </table>
+      <SecHead no="01" en="Seminars" zh="讨论班" />
+      {SEMINARS.length > 0 ? (
+        <div class="grid-2">
+          {SEMINARS.map((s) => (
+            <a class="cut-card vol-card" href={`/talks/${s.id}/`}>
+              <span class="vc-series">{s.tag}{s.period ? ` · ${s.period}` : ''}</span>
+              <h3>{s.name}</h3>
+              <p class="vc-zh">{s.desc.slice(0, 80)}……</p>
+              <div class="cc-meta">
+                <span class="tag">{s.materials.length} 份材料</span>
+                <span class="tag">{s.videos.length > 0 ? `${s.videos.length} 段视频` : '暂无视频'}</span>
+              </div>
+              <div class="cc-foot"><span>讨论班条目</span><span>进入 →</span></div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty">
+          <span class="e-star">✦</span>
+          <h3>首个讨论班录入中</h3>
+          <p>每个讨论班一个独立条目页：<b>讨论班介绍 → 讨论班材料 → 讲课视频</b>。
+          视频以链接形式挂载（B 站等平台），没有视频的讨论班同样可以建条目。</p>
+          <div class="e-cards">
+            <span class="e-card">📝 讨论班介绍</span>
+            <span class="e-card">📂 讨论班材料</span>
+            <span class="e-card">🎬 讲课视频 · 链接</span>
+          </div>
+        </div>
+      )}
     </section>
 
     <section class="sec">
-      <SecHead no="02" en="Entries" zh="活动条目" />
-      <div class="grid-2">
+      <SecHead no="02" en="Single Talks" zh="单次讲课" />
+      {LECTURES.length > 0 ? (
+        <div class="grid-2">
+          {LECTURES.map((l) => (
+            <a class="cut-card vol-card" href={`/talks/${l.id}/`}>
+              <span class="vc-series">{l.date ?? 'Single Talk'}</span>
+              <h3>{l.title}</h3>
+              <p class="vc-zh">{l.desc}</p>
+              <div class="cc-foot"><span>单次讲课</span><span>进入 →</span></div>
+            </a>
+          ))}
+        </div>
+      ) : (
         <div class="empty">
           <span class="e-star">✦</span>
           <h3>暂无单次讲课</h3>
-          <p>提供「标题 + 平台 + 链接」即可建立第一个活动条目；没有真实链接时明确标注「待上传」。</p>
+          <p>独立于讨论班的单次讲座活动会列在这里；日常的讲课以讨论班条目内的视频链接为主。</p>
         </div>
-        <div class="empty">
-          <span class="e-star">✦</span>
-          <h3>暂无讨论班系列</h3>
-          <p>讨论班按系列组织，同一场次允许多个平台或分段链接；首版用「在 B 站观看」等按钮跳转。</p>
-        </div>
-      </div>
+      )}
     </section>
   </div>
 </Base>
