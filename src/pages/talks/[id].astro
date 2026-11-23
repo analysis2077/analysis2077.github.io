@@ -36,7 +36,7 @@ const materials = seminar?.materials ?? [];
     <section class="sec">
       <SecHead no="01" en="Introduction" zh={isSeminar ? '讨论班介绍' : '活动介绍'} />
       {isSeminar && (
-        <div class="dossier">
+        <div class="dossier no-photo">
           <div class="dos-strip"><span>Seminar Record</span><span>{seminar!.tag}</span></div>
           <div class="dos-info">
             <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">{seminar!.name}{seminar!.en && <> · <i style="color:var(--muted);">{seminar!.en}</i></>}</span></div>
@@ -47,7 +47,9 @@ const materials = seminar?.materials ?? [];
           </div>
         </div>
       )}
-      <p class="intro-p" style="margin-top:16px;">{desc}</p>
+      <div class="intro-p" style="margin-top:16px;">
+        {(seminar?.intro ?? desc).split('\n\n').map((p) => <p>{p}</p>)}
+      </div>
     </section>
 
     <!-- 讨论班材料 -->
@@ -100,5 +102,9 @@ const materials = seminar?.materials ?? [];
   </div>
   <style>
     .intro-p { max-width: 52em; color: var(--ink); line-height: 1.9; }
+    .intro-p p { margin: 0 0 1em; }
+    /* 无照片列的档案卡：信息区占满整行 */
+    .dossier.no-photo { grid-template-columns: 1fr; }
+    .dossier.no-photo .dos-info { grid-column: 1 / -1; padding: 18px 24px 20px; }
   </style>
 </Base>
