@@ -2,6 +2,67 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import SecHead from '../../components/SecHead.astro';
+
+// 统一的系列卡片入口：详情都在各自详情页，目录页保持简洁同款（站主 2026-11-23 拍板）
+const SERIES = [
+  {
+    no: 'A',
+    en: 'Blue Archive',
+    zh: 'BA 数学书模板',
+    items: [
+      {
+        href: '/works/ba-math-book/',
+        cover: '/works/ba-math-book/demo-cover.jpg',
+        alt: 'BlueArchiveMathBook 演示书封面',
+        tags: ['LaTeX 模板', '书籍模板'],
+        name: 'BlueArchiveMathBook',
+        desc: '二次元（Blue Archive）风格的数学书排版：七学院主题、章节横幅、角色档案、阅读路线与数学环境；本站视觉配色来源。',
+        ver: 'v1.2.1 · 2026-11-23',
+      },
+    ],
+  },
+  {
+    no: 'B',
+    en: 'RA Series',
+    zh: 'RA 系列模板（同一 ra-common.sty 家族）',
+    items: [
+      {
+        href: '/works/ra-handout/',
+        cover: '/works/ra-handout/demo-masthead.jpg',
+        alt: 'RA Handout 演示报头',
+        tags: ['LaTeX 模板', '周讲义'],
+        name: 'RA Handout Template',
+        desc: '研究助理每周讲义：报头式首页、按节编号定理盒、三色分工、natbib 引文，XeLaTeX 一键构建。',
+        ver: 'v1.0.0 · 2026-09-30',
+      },
+      {
+        href: '/works/ra-report/',
+        cover: '/works/ra-report/demo-title.jpg',
+        alt: 'RA Report 演示扉页',
+        tags: ['LaTeX 模板', '结题报告'],
+        name: 'RA Report Template',
+        desc: '研究助理结题报告：book 类多章骨架、扉页元信息栏、按章编号，与周讲义共享同一套视觉与引文体系。',
+        ver: 'v1.0.0 · 2026-09-30',
+      },
+    ],
+  },
+  {
+    no: 'C',
+    en: 'Course Notes',
+    zh: '学校课程笔记模板',
+    items: [
+      {
+        href: '/works/school-course-notes/',
+        cover: '/works/school-course-notes/demo-title.jpg',
+        alt: 'School Course Notes 样书扉页',
+        tags: ['LaTeX 模板', '合订文档'],
+        name: 'School Course Notes Template',
+        desc: '一门课一份：知识笔记 / TTL 材料 / 往年试题三部分合订，学生版可整体隐藏解答——本站课程栏目的三类资料划分即来源于此。',
+        ver: 'v1.0.1 · 2026-07-15',
+      },
+    ],
+  },
+];
 ---
 <Base title="作品">
   <PageHero
@@ -14,77 +75,34 @@ import SecHead from '../../components/SecHead.astro';
   <div class="wrap">
     <section class="sec">
       <SecHead no="01" en="Templates" zh="模板 / 排版工具" />
-      <div class="dossier">
-        <div class="dos-strip"><span>Work Record</span><span>v1.2.1 · 2026-11-23</span></div>
-        <div class="dos-photo">
-          <img
-            src="/works/ba-math-book/demo-cover.jpg"
-            alt="BlueArchiveMathBook v1.2.1 演示书封面"
-            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
-          />
-          <span class="plate">BA MATH BOOK</span>
-        </div>
-        <div class="dos-info">
-          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v"><a href="/works/ba-math-book/"><b>BlueArchiveMathBook</b></a> <span class="tag">LaTeX 模板</span></span></div>
-          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">二次元（Blue Archive）风格的数学笔记 / 讲义排版：七学院主题、章节横幅、角色档案、阅读路线与数学环境；本站视觉配色亦源自此模板。</span></div>
-          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.2.1（2026-11-23）</span></div>
-          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">XeLaTeX · latexmk 多轮编译</span></div>
-          <div class="dos-row"><span class="dos-k">下载</span><span class="dos-v muted">整理中 —— 发布入口待定</span></div>
-        </div>
-      </div>
-      <p style="margin-top:16px;">
-        <a class="btn btn-sm" href="/works/ba-math-book/">查看作品详情 →</a>
-      </p>
-      <div class="sec-head" style="margin-top:34px;">
-        <span class="sec-no" style="font-size:30px;">B</span>
-        <div>
-          <p class="sec-en" style="margin:0;">RA Series</p>
-          <h2 style="font-size:20px;">RA 系列模板（同一 ra-common.sty 家族）</h2>
-        </div>
-        <span class="sec-line"></span>
-      </div>
-      <div class="grid-2">
-        <a class="cut-card work-item" href="/works/ra-handout/">
-          <img class="wi-cover" src="/works/ra-handout/demo-masthead.jpg" alt="RA Handout 演示报头" loading="lazy" />
-          <span class="wi-body">
-            <span class="wi-meta"><span class="tag">LaTeX 模板</span><span class="tag">周讲义</span></span>
-            <h3>RA Handout Template</h3>
-            <p>研究助理每周讲义：报头式首页、按节编号定理盒、三色分工、natbib 引文，XeLaTeX 一键构建。</p>
-            <span class="wi-ver">v1.0.0 · 2026-09-30</span>
-            <span class="wi-go">查看详情 →</span>
-          </span>
-        </a>
-        <a class="cut-card work-item" href="/works/ra-report/">
-          <img class="wi-cover" src="/works/ra-report/demo-title.jpg" alt="RA Report 演示扉页" loading="lazy" />
-          <span class="wi-body">
-            <span class="wi-meta"><span class="tag">LaTeX 模板</span><span class="tag">结题报告</span></span>
-            <h3>RA Report Template</h3>
-            <p>研究助理结题报告：book 类多章骨架、扉页元信息栏、按章编号，与周讲义共享同一套视觉与引文体系。</p>
-            <span class="wi-ver">v1.0.0 · 2026-09-30</span>
-            <span class="wi-go">查看详情 →</span>
-          </span>
-        </a>
-      </div>
-      <div class="sec-head" style="margin-top:34px;">
-        <span class="sec-no" style="font-size:30px;">C</span>
-        <div>
-          <p class="sec-en" style="margin:0;">Course Notes</p>
-          <h2 style="font-size:20px;">学校课程笔记模板</h2>
-        </div>
-        <span class="sec-line"></span>
-      </div>
-      <div class="grid-2">
-        <a class="cut-card work-item" href="/works/school-course-notes/">
-          <img class="wi-cover" src="/works/school-course-notes/demo-title.jpg" alt="School Course Notes 样书扉页" loading="lazy" />
-          <span class="wi-body">
-            <span class="wi-meta"><span class="tag">LaTeX 模板</span><span class="tag">合订文档</span></span>
-            <h3>School Course Notes Template</h3>
-            <p>一门课一份：知识笔记 / TTL 材料 / 往年试题三部分合订，学生版可整体隐藏解答——本站课程栏目的三类资料划分即来源于此。</p>
-            <span class="wi-ver">v1.0.1 · 2026-07-15</span>
-            <span class="wi-go">查看详情 →</span>
-          </span>
-        </a>
-      </div>
+      {SERIES.map((s) => (
+        <Fragment>
+          <div class:list={['series-head', s.no === 'A' && 'sh-first']}>
+            <span class="series-no">{s.no}</span>
+            <div class="sh-t">
+              <p class="sh-en">{s.en}</p>
+              <h3>{s.zh}</h3>
+            </div>
+            <span class="sec-line"></span>
+          </div>
+          <div class="grid-2">
+            {s.items.map((it) => (
+              <a class="cut-card work-item" href={it.href}>
+                <img class="wi-cover" src={it.cover} alt={it.alt} loading="lazy" />
+                <span class="wi-body">
+                  <span class="wi-meta">
+                    {it.tags.map((t) => <span class="tag">{t}</span>)}
+                  </span>
+                  <h3>{it.name}</h3>
+                  <p>{it.desc}</p>
+                  <span class="wi-ver">{it.ver}</span>
+                  <span class="wi-go">查看详情 →</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </Fragment>
+      ))}
     </section>
     <section class="sec">
       <SecHead no="02" en="More" zh="更多作品" />

@@ -542,6 +542,15 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 }
 
 /* 小作品条目卡（作品目录页） */
+.series-head { display: flex; align-items: center; gap: 14px; margin: 38px 0 18px; }
+.series-head.sh-first { margin-top: 4px; }
+.series-no {
+  font-size: 30px; font-weight: 800; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1.2px var(--sky); letter-spacing: 1px;
+}
+.series-head .sh-t { line-height: 1.25; }
+.series-head .sh-en { font-size: 10.5px; letter-spacing: 3px; color: var(--sky); text-transform: uppercase; margin: 0; }
+.series-head h3 { font-size: 19px; margin: 2px 0 0; }
 .work-item { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 16px; color: var(--ink); }
 a.work-item:hover { color: var(--ink); }
 .work-item .wi-cover {
