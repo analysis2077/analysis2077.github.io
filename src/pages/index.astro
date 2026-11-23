@@ -4,16 +4,18 @@ import SecHead from '../components/SecHead.astro';
 import CourseCard from '../components/CourseCard.astro';
 import { SITE, UPDATES } from '../data/site';
 import { COURSES } from '../data/courses';
+import { ESSAYS } from '../data/essays';
 
 const mth118 = COURSES.find((c) => c.code === 'MTH118')!;
+const essay = ESSAYS.find((e) => e.id === 'real-completeness')!;
 
 const sections = [
   { href: '/about/', no: '01', zh: '关于', en: 'About', desc: '站主是谁、在读什么方向、从哪里开始读。' },
   { href: '/courses/', no: '02', zh: '课程笔记', en: 'Courses', desc: '学校课程资料库：知识笔记 · TTL 习题 · 往年试题。' },
   { href: '/notes/', no: '03', zh: '个人笔记', en: 'Notes', desc: "六个大学科的长期笔记档案，一学科一学院配色，按系列与分册整理。" },
-  { href: '/essays/', no: '04', zh: '随笔', en: 'Essays', desc: '围绕一个个相对完整问题的独立短文。' },
-  { href: '/talks/', no: '05', zh: '讲课与讨论班', en: 'Talks', desc: '讲课、讨论班系列与视频入口（外链跳转）。' },
-  { href: '/works/', no: '06', zh: '作品', en: 'Works', desc: '模板与工具，例如 Blue Archive 数学书模板。' },
+  { href: '/essays/', no: '04', zh: '随笔', en: 'Essays', desc: '三大板块：数学史与人物 · 概念科普 · 理论专题。' },
+  { href: '/talks/', no: '05', zh: '讲课与讨论班', en: 'Talks', desc: '以讨论班为单位的条目式归档，视频外链跳转。' },
+  { href: '/works/', no: '06', zh: '作品', en: 'Works', desc: '自制 LaTeX 模板与排版工具，全部开放下载。' },
   { href: '/search/', no: '07', zh: '搜索', en: 'Search', desc: '站内检索：课程代码 / 中英文题名 / 标签。' },
 ];
 ---
@@ -39,7 +41,7 @@ const sections = [
           <a class="btn" href="/courses/">进入课程笔记 →</a>
           <a class="btn btn-ghost" href="/notes/">浏览个人笔记</a>
         </div>
-        <span class="hero-badge">⚠ 阶段 1 · 占位骨架试运行 —— 真实内容将在阶段 2 导入</span>
+        <span class="hero-badge">✦ 分析与偏微分方程方向 · TUM 数学硕士在读</span>
       </div>
     </div>
   </section>
@@ -65,10 +67,38 @@ const sections = [
     <section class="sec">
       <SecHead no="02" en="Featured" zh="代表内容" />
       <div class="grid-2">
+        <a class="cut-card vol-card" href={`/essays/${essay.id}/`}>
+          <span class="vc-series">ESSAY · 理论专题</span>
+          <h3>{essay.title}</h3>
+          <p class="vc-zh">六大完备性定理在 ℝ 中两两等价——{essay.proofs} 条互相推导 · PDF {essay.pages} 页</p>
+          <div class="cc-meta">
+            <span class="tag">数学分析</span>
+            <span class="tag">PDF 讲义</span>
+            <span class="st st-new">NEW!</span>
+          </div>
+          <div class="cc-foot">
+            <span>✓ 在线阅读 / 下载</span>
+            <span>阅读随笔 →</span>
+          </div>
+        </a>
+        <a class="cut-card vol-card" href="/works/ba-math-book/">
+          <span class="vc-series">WORK · TEMPLATE V1.2.1</span>
+          <h3>BlueArchiveMathBook</h3>
+          <p class="vc-zh">七学院主题的 XeLaTeX 数学书模板——本站视觉配色的来源。</p>
+          <div class="cc-meta">
+            <span class="tag">LaTeX 模板</span>
+            <span class="tag">MIT</span>
+            <span class="st st-done">已发布</span>
+          </div>
+          <div class="cc-foot">
+            <span>✓ GitHub Releases 可下载</span>
+            <span>作品详情 →</span>
+          </div>
+        </a>
         <a class="cut-card vol-card" href="/notes/pde/basic-pde/">
           <span class="vc-series">THE UNFINISHED WAY · PART I</span>
           <h3>Basic Partial Differential Equations</h3>
-          <p class="vc-zh">偏微分方程基础 · 302 页样本（文件待导入）</p>
+          <p class="vc-zh">偏微分方程基础 · 302 页 · 分析准备 → Sobolev 空间</p>
           <div class="cc-meta">
             <span class="tag th-gehenna">基础偏微分方程</span>
             <span class="tag">英文</span>
