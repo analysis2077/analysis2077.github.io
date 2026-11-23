@@ -1,0 +1,123 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+
+// 示例图截自模板演示文档 main.pdf（v1.0.0 实编译输出），渲染参数见仓库 ASSETS-SOURCES.md
+const SHOTS = [
+  { src: '/works/ra-handout/demo-masthead.jpg', cap: '首页报头 · Week 编号 + 元信息栏（无封面页）' },
+  { src: '/works/ra-handout/demo-theorems.jpg', cap: '定理盒正文 · 蓝/紫/灰三色分工 + 页眉页脚' },
+];
+
+const INFO = String.raw`\RAHandoutInfo{
+  week       = {01},
+  title      = {Convex Analytic Foundations for Variational Problems},
+  short title= {Convex Analytic Foundations},
+  subtitle   = {Proper convex functions, conjugacy, subdifferentials, ...},
+  author     = {Liangyu Chen},
+  project    = {Research Assistant Project},
+  supervisor = {Supervisor Name},
+  institution= {Department of Mathematics},
+  date       = {30 September 2026}
+}
+
+\begin{document}
+\MakeRAHandoutHeader   % 紧跟 \begin{document} 之后
+...`;
+
+const BUILD = String.raw`build.bat   （双击一键：XeLaTeX -> BibTeX -> XeLaTeX -> XeLaTeX）
+
+# 或手动：
+xelatex main.tex
+bibtex main
+xelatex main.tex
+xelatex main.tex`;
+---
+<Base title="RA Handout Template · 作品">
+  <PageHero
+    theme="trinity"
+    en="Work File"
+    zh="RA Handout Template"
+    desc="研究助理每周讲义的 XeLaTeX 模板 —— 克制的学术蓝紫视觉，与 RA Report 共享同一套 ra-common.sty，保证整个 RA 工作流排版一致。"
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '作品', href: '/works/' },
+      { label: 'RA Handout Template' },
+    ]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Work Record</span><span>v1.0.0 · 2026-09-30</span></div>
+        <div class="dos-photo">
+          <img
+            src="/works/ra-handout/demo-masthead.jpg"
+            alt="RA Handout 演示文档首页报头"
+            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
+          />
+          <span class="plate">XELATEX · ARTICLE</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">RA Handout Template <span class="tag">LaTeX 模板</span><span class="tag">RA 系列 · 周讲义</span></span></div>
+          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">研究助理项目（RA）的每周讲义排版：报头式首页、按节编号的定理盒、引文与交叉引用开箱即用。</span></div>
+          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.0.0（2026-09-30）· 首个稳定版</span></div>
+          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">XeLaTeX + BibTeX/natbib · Windows 一键 build.bat · TeX Live 2026 全量安装即可（Libertinus 字体随发行版分发）</span></div>
+          <div class="dos-row"><span class="dos-k">版式</span><span class="dos-v">A4 · 11pt · 单栏 article · 首页报头（无封面）</span></div>
+          <div class="dos-row"><span class="dos-k">文件构成</span><span class="dos-v">ra-handout.cls + ra-common.sty（共享核心）· main.tex 演示 · starter.tex 起步模板 · references.bib</span></div>
+          <div class="dos-row"><span class="dos-k">许可 / 下载</span><span class="dos-v muted">站主自制 · 发布入口待定（不设无效按钮）</span></div>
+          <div class="dos-row"><span class="dos-k">关联作品</span><span class="dos-v"><a href="/works/ra-report/"><b>RA Report Template</b></a> —— 结题报告版，共享 ra-common.sty，定理盒 / 引文 / 字体完全一致</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:10px;">
+      <SecHead no="01" en="Screenshots" zh="示例图" />
+      <div class="shot-grid">
+        {SHOTS.map((s) => (
+          <figure>
+            <img src={s.src} alt={s.cap} loading="lazy" />
+            <figcaption>{s.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">示例图截自模板演示文档 main.pdf（v1.0.0 实编译输出）。</p>
+    </section>
+
+    <section class="sec">
+      <SecHead no="02" en="Quick Start" zh="快速上手" />
+      <p style="margin-bottom:10px;">顶部元信息集中在一处，改完即用：</p>
+      <pre class="codebox">{INFO}</pre>
+      <p style="margin:16px 0 10px;">编译（Windows 一键或手动四步）：</p>
+      <pre class="codebox">{BUILD}</pre>
+    </section>
+
+    <section class="sec">
+      <SecHead no="03" en="Feature Overview" zh="特性一览" />
+      <div class="grid-2">
+        <div class="cut-card feat-card">
+          <span class="fc-ico">∑</span>
+          <h3>按节编号的定理系统</h3>
+          <p>definition / theorem / proposition / lemma / corollary / example / assumption / remark / observation 九个编号环境共享一个按节计数器；keypoint / researchquestion / nextsteps 三个无编号提示盒；cleveref 已预装。所有盒子的标题都在盒体内部，无突出色条。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">🎨</span>
+          <h3>克制的三色分工</h3>
+          <p>蓝紫学术色系：数学环境淡蓝底、例子与假设淡紫底、注记与观察中性蓝灰底；证明保持标准 AMS 样式不加盒。视觉刻意克制，适合每周发给别人看的正式材料。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">📑</span>
+          <h3>周讲义专用结构</h3>
+          <p>首页为紧凑报头（Week 编号 + 标题 + 作者 / 导师 / 日期元信息栏），不用封面页；后续页页眉自动带短题名、周号与作者，页脚带署名与页码。公式按节编号。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">🔗</span>
+          <h3>引文与家族一致性</h3>
+          <p>natbib + BibTeX（默认 abbrvnat 数字压缩式引用），\PrintRABibliography 一行打印文献；与 RA Report 共享 ra-common.sty，每周讲义和最终报告的定理盒、字体、引文样式天然一致。</p>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        <b>版本记录：</b>v1.0.0（2026-09-30）首个稳定版——周讲义版式、定理盒系统、报头元信息接口、一键构建脚本就绪。
+      </div>
+    </section>
+  </div>
+</Base>

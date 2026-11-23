@@ -1,0 +1,136 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+
+// 示例图截自模板演示报告 main.pdf（v1.0.0 实编译输出），渲染参数见仓库 ASSETS-SOURCES.md
+const SHOTS = [
+  { src: '/works/ra-report/demo-title.jpg', cap: '扉页 · 标题 + 导师 / 院系 / 项目周期元信息栏' },
+  { src: '/works/ra-report/demo-toc.jpg', cap: '目录页 · 前置部分到附录的完整骨架' },
+  { src: '/works/ra-report/demo-chapter.jpg', cap: '章首 · 淡色章号 + 章副题（无装饰画）' },
+  { src: '/works/ra-report/demo-theorems.jpg', cap: '正文 · 与周讲义同款定理盒 + 标准证明' },
+];
+
+const USAGE = String.raw`\documentclass{ra-report}          % 可选 [twoside]
+
+\RAReportInfo{
+  title       = {Convex Analysis and Variational Problems},
+  author      = {Liangyu Chen},
+  supervisor  = {Supervisor Name},
+  date        = {January 2027}
+}
+
+\begin{document}
+\frontmatter
+\MakeRAReportTitlePage
+
+\begin{RAAbstract}
+...
+\end{RAAbstract}
+
+\tableofcontents
+\mainmatter
+\chapter{Introduction}
+\RAChapterSubtitle{A short descriptive line.}   % 章副题，不入目录
+...
+
+\appendix
+\chapter{Technical Material}
+...
+\backmatter
+\PrintRABibliography
+\end{document}`;
+
+const BUILD = String.raw`build.bat   （双击一键：XeLaTeX -> BibTeX -> XeLaTeX -> XeLaTeX）`;
+---
+<Base title="RA Report Template · 作品">
+  <PageHero
+    theme="trinity"
+    en="Work File"
+    zh="RA Report Template"
+    desc="数学研究助理项目结题报告的 XeLaTeX 模板 —— book 类多章结构，与 RA Handout 共享同一套 ra-common.sty，定理盒、字体与引文样式完全一致。"
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '作品', href: '/works/' },
+      { label: 'RA Report Template' },
+    ]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Work Record</span><span>v1.0.0 · 2026-09-30</span></div>
+        <div class="dos-photo">
+          <img
+            src="/works/ra-report/demo-title.jpg"
+            alt="RA Report 演示报告扉页"
+            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
+          />
+          <span class="plate">XELATEX · BOOK</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">RA Report Template <span class="tag">LaTeX 模板</span><span class="tag">RA 系列 · 结题报告</span></span></div>
+          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">研究助理项目（RA）的最终结题报告排版：多章 book 结构、扉页元信息栏、摘要 / 致谢 / 符号表前置助手、附录与封底支持。</span></div>
+          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.0.0（2026-09-30）· 首个稳定版</span></div>
+          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">XeLaTeX + BibTeX/natbib · Windows 一键 build.bat · TeX Live 2026 全量安装即可</span></div>
+          <div class="dos-row"><span class="dos-k">版式</span><span class="dos-v">A4 · 11pt · 默认单面（电子提交），可选 [twoside] 双面</span></div>
+          <div class="dos-row"><span class="dos-k">文件构成</span><span class="dos-v">ra-report.cls + ra-common.sty（共享核心）· main.tex 演示 · starter.tex 起步模板 · chapters/ 多章示例 · assets/figures/</span></div>
+          <div class="dos-row"><span class="dos-k">许可 / 下载</span><span class="dos-v muted">站主自制 · 发布入口待定（不设无效按钮）</span></div>
+          <div class="dos-row"><span class="dos-k">关联作品</span><span class="dos-v"><a href="/works/ra-handout/"><b>RA Handout Template</b></a> —— 每周讲义版，同一 ra-common.sty 家族，视觉与编号体系成套</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:10px;">
+      <SecHead no="01" en="Screenshots" zh="示例图" />
+      <div class="shot-grid">
+        {SHOTS.map((s) => (
+          <figure>
+            <img src={s.src} alt={s.cap} loading="lazy" />
+            <figcaption>{s.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">示例图截自模板演示报告 main.pdf（v1.0.0 实编译输出）。</p>
+    </section>
+
+    <section class="sec">
+      <SecHead no="02" en="Basic Usage" zh="基本用法" />
+      <p style="margin-bottom:10px;">一份结题报告的完整骨架（前置部分 → 正文章节 → 附录 → 封底文献）：</p>
+      <pre class="codebox">{USAGE}</pre>
+      <p style="margin:16px 0 10px;">编译：</p>
+      <pre class="codebox">{BUILD}</pre>
+      <div class="note-box" style="margin-top:14px;">
+        推荐项目结构见模板 README：<b>chapters/ch01-…、appA-… 分文件写作</b>，assets/figures/ 存图；公式与定理编号均按章编排。
+      </div>
+    </section>
+
+    <section class="sec">
+      <SecHead no="03" en="Feature Overview" zh="特性一览" />
+      <div class="grid-2">
+        <div class="cut-card feat-card">
+          <span class="fc-ico">📘</span>
+          <h3>book 类多章骨架</h3>
+          <p>\frontmatter / \mainmatter / \backmatter 完整前置封底流程；RAAbstract、致谢与符号表前置助手；附录与封底由 book 类原生支持；\MakeRAReportTitlePage 一行生成扉页元信息栏。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">02</span>
+          <h3>克制的章首设计</h3>
+          <p>章首用淡色大号章号 + 细分线 + \RAChapterSubtitle 章副题（刻意不入目录），无任何装饰画——正式提交材料的外观。公式与定理均按章编号。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">∑</span>
+          <h3>与周讲义同款定理系统</h3>
+          <p>definition / theorem / proposition / lemma / corollary / example / assumption / remark / observation 九个编号环境 + keypoint / researchquestion / nextsteps 三个提示盒，编号从"按节"切换为"按章"，盒样式与周讲义完全一致。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">🔗</span>
+          <h3>一个家族的 RA 工作流</h3>
+          <p>每周用 RA Handout 发进度，结题用 RA Report 汇总：共享 ra-common.sty，字体（Libertinus 三件套）、蓝紫色板、定理盒、natbib 引文与 cleveref 交叉引用全部无缝衔接。</p>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        <b>版本记录：</b>v1.0.0（2026-09-30）首个稳定版——book 类骨架、扉页接口、章副题、按章编号、多章示例结构就绪。
+      </div>
+    </section>
+  </div>
+</Base>
