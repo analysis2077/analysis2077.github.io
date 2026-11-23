@@ -1,0 +1,26 @@
+# 素材来源清单（规划 §8.4：素材的公开使用版本、来源和署名随素材清单记录）
+
+## site/public/works/ba-math-book/*.jpg（6 张作品示例图）
+
+- **内容**：BlueArchiveMathBook 模板演示书 `main.pdf`（43 页七学院演示）的实编译输出截页
+- **来源文件**：工作区 `extracted/BlueArchiveMathBook_v1_2_0/main.pdf`（内容为 v1.2.1，2026-11-23）
+- **渲染方式**：`pdftoppm -jpeg -jpegopt quality=88 -r 110`（A4，约 992×1403 px）
+- **页面映射**：
+  | 文件 | main.pdf 页码 | 内容 |
+  |---|---|---|
+  | demo-cover.jpg | p1 | 封面（Schale 主视觉） |
+  | demo-part-gate.jpg | p4 | Part I 门页（Schale CG + 徽章） |
+  | demo-local-toc.jpg | p5 | Part I 局部目录（学院配色） |
+  | demo-chapter-dossier.jpg | p7 | 章节横幅 + 学生档案卡（Arona） |
+  | demo-theorems.jpg | p8 | 定理类环境正文页 |
+  | demo-gehenna-dossier.jpg | p20 | Gehenna 主题章节页（Hina 档案） |
+- **版权**：页面版式为站主本人的模板代码输出；页内出现的 Blue Archive 游戏美术 / 角色素材版权归 Nexon Games / Yostar 等权利人所有，非官方同人、个人非商业用途（模板内 ASSETS_NOTICE.md）。作品页底部已放置同款声明。
+
+## site/public/avatar.jpg、site/public/home-bg.jpg
+
+- 站主提供 / 前期会话从模板素材中选定（如有变更在此更新记录）。
+
+## 记录原则
+
+- 新增任何进入站点的图片 / 插画 / Logo，在此登记：内容、来源、版本、授权方式。
+- 页面上展示第三方素材时，必须带来源与署名说明。

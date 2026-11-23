@@ -14,24 +14,27 @@ import SecHead from '../../components/SecHead.astro';
   <div class="wrap">
     <section class="sec">
       <SecHead no="01" en="Templates" zh="模板 / 排版工具" />
-      <div class="dossier th-gehenna" style="grid-template-columns:230px 1fr;">
-        <div class="dos-strip"><span>Work Record</span><span>V1.2.0</span></div>
+      <div class="dossier">
+        <div class="dos-strip"><span>Work Record</span><span>v1.2.1 · 2026-11-23</span></div>
         <div class="dos-photo">
-          <svg viewBox="0 0 120 52" width="92" height="40" aria-hidden="true">
-            <ellipse cx="60" cy="26" rx="54" ry="19" fill="none" stroke="#C8404A" stroke-width="4.5"/>
-            <ellipse cx="60" cy="26" rx="54" ry="19" fill="none" stroke="#FBF0F0" stroke-width="1.5" transform="translate(0,-2.5)"/>
-          </svg>
-          <span class="plate" style="color:#8E2F38;border-color:#C8404A;">BA MATH</span>
-          <span class="art-cap" style="position:static;transform:none;">示例图占位</span>
+          <img
+            src="/works/ba-math-book/demo-cover.jpg"
+            alt="BlueArchiveMathBook v1.2.1 演示书封面"
+            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
+          />
+          <span class="plate">BA MATH BOOK</span>
         </div>
         <div class="dos-info">
-          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">BlueArchiveMathBook <span class="tag th-gehenna">LaTeX 模板</span></span></div>
-          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">二次元（Blue Archive）风格的数学笔记 / 讲义排版：七学院主题、章节横幅、角色档案、阅读路线与数学环境。</span></div>
-          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.2.0（站主已提供样本 zip，待导入）</span></div>
-          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">LaTeX（导入后补充具体发行版与编译方式）</span></div>
-          <div class="dos-row"><span class="dos-k">下载</span><span class="dos-v muted">待提供 —— 导入后显示带版本号的下载入口</span></div>
+          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v"><a href="/works/ba-math-book/"><b>BlueArchiveMathBook</b></a> <span class="tag">LaTeX 模板</span></span></div>
+          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">二次元（Blue Archive）风格的数学笔记 / 讲义排版：七学院主题、章节横幅、角色档案、阅读路线与数学环境；本站视觉配色亦源自此模板。</span></div>
+          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.2.1（2026-11-23）</span></div>
+          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">XeLaTeX · latexmk 多轮编译</span></div>
+          <div class="dos-row"><span class="dos-k">下载</span><span class="dos-v muted">整理中 —— 发布入口待定</span></div>
         </div>
       </div>
+      <p style="margin-top:16px;">
+        <a class="btn btn-sm" href="/works/ba-math-book/">查看作品详情 →</a>
+      </p>
     </section>
     <section class="sec">
       <SecHead no="02" en="More" zh="更多作品" />

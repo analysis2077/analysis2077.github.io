@@ -1,0 +1,194 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+
+// 示例图均截自模板演示书 main.pdf（v1.2.1 实编译输出），渲染参数见仓库 ASSETS-SOURCES.md
+const SHOTS = [
+  { src: '/works/ba-math-book/demo-cover.jpg', cap: '封面 · Schale 主视觉' },
+  { src: '/works/ba-math-book/demo-part-gate.jpg', cap: 'Part 门页 · CG + 学院徽章' },
+  { src: '/works/ba-math-book/demo-chapter-dossier.jpg', cap: '章节横幅 + 学生档案卡 · Arona' },
+  { src: '/works/ba-math-book/demo-theorems.jpg', cap: '定理类环境正文 · 一页总览' },
+  { src: '/works/ba-math-book/demo-gehenna-dossier.jpg', cap: 'Gehenna 主题 · Hina 档案（一键换色）' },
+  { src: '/works/ba-math-book/demo-local-toc.jpg', cap: '局部目录 · 学院配色（到 Section）' },
+];
+
+// 七学院主题色（取自模板 config/ba-themes.sty / ba-colors.sty 的 Primary 色值）
+const THEMES = [
+  { name: 'Schale', hex: '#4CB3FF' },
+  { name: 'Millennium', hex: '#2F80ED' },
+  { name: 'Gehenna', hex: '#D94343' },
+  { name: 'Trinity', hex: '#D6A83A' },
+  { name: 'Shanhaijing', hex: '#1B9A8A' },
+  { name: 'Hyakkiyako', hex: '#E86A5B' },
+  { name: 'Abydos', hex: '#D4A24A' },
+];
+
+const FEATURES = [
+  { ico: '🎨', t: '七学院主题系统', d: 'Schale / Millennium / Gehenna / Trinity / 山海经 / 百鬼夜行 / 阿拜多斯七套语义色板 + 透明徽章 + 默认 CG；\\BAPartSetup 或 \\BATheme 一键切换，全套视觉自动跟随。' },
+  { ico: '∑', t: '数学环境系统', d: 'definition / assumption / theorem / lemma / proposition / corollary / observation / example / exercise / problem / remark 共享定理计数器与 cleveref 名称；proofidea 与 solution 为无编号战略接口，解答可整体隐藏。' },
+  { ico: '🗂', t: '学生档案 UI', d: '角色档案卡（dossier）、任务板、编号检查点路线、任务完成卡、归档便签；\\BAChapterBriefing 统一渲染，章节间数据自动隔离，缺头像回退内置矢量头像。' },
+  { ico: '📑', t: '双目录系统', d: 'parttoc=true 时每个 Part 自动生成学院配色的局部目录（Chapter + Section），全局目录保持中性墨蓝；长目录自动续页并带续页页眉，Section 编号列紧凑对齐。' },
+  { ico: '🧩', t: '结构化部件', d: 'Part 门页 CG、章节横幅、分部附录（I.A / II.A 编号，不占全局章号）、frontmatter 罗马页码 → mainmatter 阿拉伯页码、注释阅读指南模块、七学院装饰盒（可选独立宏包）。' },
+  { ico: '🛡', t: '健壮性与回归', d: '图片缺失自动回退主题默认图、再回退纯 TikZ 占位；draft=true 关闭插画保留数学版式；qa/ 目录内置目录深度、七主题、多页目录等回归测试源。' },
+];
+
+const CMD = String.raw`latexmk -xelatex -interaction=nonstopmode -halt-on-error -file-line-error main.tex`;
+
+const MINIMAL = String.raw`\documentclass[theme=schale,parttoc=true]{ba-book}
+
+\BASetup{
+  title = {My Math Notes},
+  author = {Analysis2077},
+  theme = schale,
+}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+
+\BAPartSetup{theme=gehenna}
+\part{Modern PDE}
+
+\BAChapterSetup{student={Hina}, mission={Weak solutions in one line.}}
+\chapter{Weak Solutions and Energy Estimates}
+% definition / theorem / proof 环境直接可用
+\end{document}`;
+
+const OPTS = [
+  { k: 'theme', v: 'schale / millennium / gehenna / trinity / shanhaijing / hyakkiyako / abydos', d: '学院主题，全局 + 可按 Part / 章覆盖' },
+  { k: 'flavor', v: 'light / normal / heavy（预留）', d: '插画浓度；heavy 目前等同 normal' },
+  { k: 'solutions', v: 'true / false（或简写 nosolutions）', d: 'solution 环境内容开关，出题版一键隐藏解答' },
+  { k: 'draft', v: 'true / false', d: '草稿模式：关闭插画，保留数学版式与页码' },
+  { k: 'parttoc', v: 'true / false', d: '每个 Part 后自动局部目录；合订本开、单分册关' },
+  { k: 'lang', v: 'en（多语言预留）', d: '界面语言；当前仅英文文案' },
+];
+
+const VERS = [
+  { v: 'v1.2.1', date: '2026-11-23', d: '维护与文档版：新增 LICENSE（MIT）与素材使用声明；README 补全文档 / Part / 章节 / 档案 UI 全接口；装饰盒更名 BAOrnamentSchale … BAOrnamentAbydos（旧数字名保留为别名）；归档角点装饰重构为共享宏。渲染零变化：QA 全套与演示书编译页数一致。' },
+  { v: 'v1.2.0', date: '2026-09-02', d: '目录系统重做：新增 parttoc 局部目录（学院配色、深度到 Section）；全局目录改为中性墨蓝档案导航；分部附录改为直接跟随正文（A Title 形式）；新增 qa/ 回归测试集。' },
+  { v: 'v1.1.3', date: '2026-07-13', d: '新增 assumption 与 observation 两个编号环境，接入共享定理计数器、Hyperref 锚点与 cleveref 名称，七主题盒样式自适应。' },
+  { v: 'v1.1.2', date: '2026-07-06', d: '新增 BAPartAppendices 分部附录环境：附录章按部编号（I.A / II.A），不消耗全局章号。' },
+  { v: 'v1.1', date: '2026-06-11', d: '主题系统大版本：新增山海经 / 百鬼夜行 / 阿拜多斯三个一线学院主题，调度器改为注册表式七主题。' },
+  { v: 'v1.0', date: '2026-05-29', d: '首个稳定版：类选项接口、版本宏、草稿模式、解答开关、模板使用维护手册、完整 README 与示例集。' },
+  { v: 'v0.8.x', date: '2026-05-28 起', d: '原型线：四学院切换、档案卡 UI、序言与 Part 导语、注释阅读指南模块、真实角色立绘。' },
+];
+---
+<Base title="BlueArchiveMathBook · 作品">
+  <PageHero
+    theme="trinity"
+    en="Work File"
+    zh="BlueArchiveMathBook"
+    desc="七学院主题的 XeLaTeX 数学书籍模板 —— 长篇笔记 / 讲义的排版系统，本站的 Schale / Gehenna / Trinity 视觉配色正来源于此。"
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '作品', href: '/works/' },
+      { label: 'BlueArchiveMathBook' },
+    ]}
+  />
+  <div class="wrap">
+    <!-- 档案卡 -->
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Work Record</span><span>v1.2.1 · 2026-11-23</span></div>
+        <div class="dos-photo">
+          <img
+            src="/works/ba-math-book/demo-part-gate.jpg"
+            alt="模板演示书 Part I 门页（Schale CG）"
+            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
+          />
+          <span class="plate">XELATEX · BOOK CLASS</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">BlueArchiveMathBook <span class="tag">LaTeX 书籍模板</span><span class="tag">非官方同人</span></span></div>
+          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">二次元（Blue Archive）风格的数学笔记 / 讲义排版：七学院主题、章节横幅、角色档案、阅读路线与完整数学环境。</span></div>
+          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v"><b>v1.2.1</b>（2026-11-23）· 渲染零变化的维护版</span></div>
+          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">XeLaTeX（latexmk 多轮编译）· 任意主流 TeX 发行版</span></div>
+          <div class="dos-row"><span class="dos-k">规模</span><span class="dos-v">主类 + 11 个样式模块 · 7 学院主题 · 43 页演示样书</span></div>
+          <div class="dos-row"><span class="dos-k">许可</span><span class="dos-v">模板代码 MIT；美术素材见下方同人声明</span></div>
+          <div class="dos-row"><span class="dos-k">下载</span><span class="dos-v muted">整理中 —— 发布入口待定（不设无效按钮）</span></div>
+          <div class="dos-row"><span class="dos-k">关联</span><span class="dos-v">本站视觉系统的配色来源（规划 §10.1）</span></div>
+        </div>
+      </div>
+      <p style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn disabled" disabled>⬇ 下载 v1.2.1（整理中）</button>
+        <button class="btn btn-ghost disabled" disabled>🗃 代码仓库（待建立）</button>
+      </p>
+    </section>
+
+    <!-- 01 特性 -->
+    <section class="sec">
+      <SecHead no="01" en="Feature Overview" zh="特性一览" />
+      <div class="sw-row">
+        {THEMES.map((t) => (
+          <div class="sw"><i style={`background:${t.hex}`}></i><b>{t.name}</b><span>{t.hex}</span></div>
+        ))}
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin:8px 2px 20px;">七学院主题主色（取自模板 ba-themes.sty / ba-colors.sty 的 Primary 色值）。</p>
+      <div class="grid-3">
+        {FEATURES.map((f) => (
+          <div class="cut-card feat-card">
+            <span class="fc-ico">{f.ico}</span>
+            <h3>{f.t}</h3>
+            <p>{f.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 02 示例图 -->
+    <section class="sec">
+      <SecHead no="02" en="Screenshots" zh="示例图" />
+      <div class="shot-grid">
+        {SHOTS.map((s) => (
+          <figure>
+            <img src={s.src} alt={s.cap} loading="lazy" />
+            <figcaption>{s.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">示例图截自模板演示书 main.pdf（43 页七学院演示，v1.2.1 实编译输出）。</p>
+    </section>
+
+    <!-- 03 快速上手 -->
+    <section class="sec">
+      <SecHead no="03" en="Quick Start" zh="快速上手" />
+      <p style="margin-bottom:10px;">在项目根目录编译（Part 局部目录依赖辅助 .ptc 文件，latexmk 会自动处理多轮 XeLaTeX 编译）：</p>
+      <pre class="codebox">{CMD}</pre>
+      <p style="margin:18px 0 10px;">最小可编译示例（合订本模式，一个类选项切换即可变为单分册）：</p>
+      <pre class="codebox">{MINIMAL}</pre>
+      <div class="tbl-wrap" style="margin-top:18px; overflow-x:auto;">
+        <table class="tbl">
+          <thead><tr><th>类选项</th><th>取值</th><th>作用</th></tr></thead>
+          <tbody>
+            {OPTS.map((o) => (
+              <tr><td><b>{o.k}</b></td><td>{o.v}</td><td>{o.d}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        更多即贴即用的档案卡片段见模板内 <b>examples/student-archive-snippets.tex</b>；最小构建见 <b>examples/minimal-book.tex</b>；迁移指南见 <b>MIGRATION_v1.2.0.md</b>。
+      </div>
+    </section>
+
+    <!-- 04 版本历史 -->
+    <section class="sec">
+      <SecHead no="04" en="Changelog" zh="版本历史" />
+      <div class="ver-list">
+        {VERS.map((v) => (
+          <div class="ver-row">
+            <span class="ver-badge">{v.v}</span>
+            <span class="ver-date">{v.date}</span>
+            <p>{v.d}</p>
+          </div>
+        ))}
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        <b>非官方同人作品声明：</b>模板代码以 MIT 许可发布；assets/ 内的 Blue Archive 游戏美术、Logo 与角色素材版权归 Nexon Games / Yostar 等权利人所有，仅限个人非商业用途（详见模板内 ASSETS_NOTICE.md）。本页所有示例图截自模板自身编译输出，仅作展示。
+      </div>
+    </section>
+  </div>
+</Base>

@@ -485,3 +485,58 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------------- 作品页扩展（色卡 / 展廊 / 版本线 / 代码框） ---------------- */
+.sw-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+.sw {
+  background: #fff; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden;
+  text-align: center; font-size: 11px; color: var(--muted);
+}
+.sw i { display: block; height: 44px; }
+.sw b { display: block; padding: 6px 4px 0; color: var(--ink); font-size: 12px; }
+.sw span { display: block; padding: 0 4px 7px; font-family: Consolas, monospace; font-size: 10.5px; letter-spacing: .5px; }
+
+.feat-card { padding: 18px; }
+.feat-card .fc-ico { font-size: 22px; color: var(--sky); font-weight: 800; }
+.feat-card h3 { font-size: 16px; margin: 8px 0 5px; }
+.feat-card p { font-size: 12.8px; color: var(--muted); margin: 0; line-height: 1.65; }
+
+.shot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.shot-grid figure {
+  margin: 0; background: #fff; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden;
+  filter: drop-shadow(0 4px 10px rgba(18, 57, 95, 0.08));
+}
+.shot-grid img { display: block; width: 100%; aspect-ratio: 1 / 1.414; object-fit: contain; background: #fff; }
+.shot-grid figcaption {
+  padding: 9px 12px; font-size: 12px; color: var(--muted);
+  border-top: 1px dashed var(--line); text-align: center;
+}
+
+.codebox {
+  background: var(--navy); color: #DCEBF7; border-radius: 10px;
+  padding: 16px 18px; font-family: Consolas, 'Courier New', monospace;
+  font-size: 13px; line-height: 1.65; overflow-x: auto; margin: 0;
+}
+
+.ver-list {
+  background: #fff; filter: drop-shadow(0 5px 12px rgba(18, 57, 95, 0.08));
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+.ver-row { display: flex; align-items: baseline; gap: 14px; padding: 13px 20px; border-bottom: 1px dashed var(--line); font-size: 14px; }
+.ver-row:last-child { border-bottom: none; }
+.ver-badge {
+  flex: none; min-width: 64px; text-align: center; font-weight: 800; font-size: 12.5px;
+  color: var(--deep); background: var(--light); border-radius: 6px; padding: 2px 10px;
+}
+.ver-date { flex: none; color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.ver-row p { margin: 0; font-size: 13.2px; color: var(--ink); }
+
+@media (max-width: 900px) {
+  .sw-row { grid-template-columns: repeat(4, 1fr); }
+  .shot-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .sw-row { grid-template-columns: repeat(2, 1fr); }
+  .shot-grid { grid-template-columns: 1fr; }
+  .ver-row { flex-wrap: wrap; gap: 8px 12px; }
+}
