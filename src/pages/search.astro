@@ -2,28 +2,149 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 ---
-<Base title="搜索">
+<Base title="搜索" noindex>
   <PageHero
     en="Search"
     zh="站内搜索"
-    desc="覆盖课程代码、原题名、中文别名、介绍、标签及网页正文（规划 §11.2）。"
+    desc="覆盖课程代码、英文题名、中文主题与网页正文——静态索引，浏览器内即时查询。"
     crumbs={[{ label: '首页', href: '/' }, { label: '搜索' }]}
   />
   <div class="wrap">
     <section class="sec">
-      <div class="filters" style="padding:20px;">
-        <input class="f-in" type="search" placeholder="试试：偏微分方程 / Partial Differential Equations / PDE / MTH118 …" disabled />
-        <button class="btn disabled" disabled>搜索</button>
+      <div class="search-bar">
+        <span class="sb-ico" aria-hidden="true">🔍</span>
+        <input id="s-q" class="f-in" type="search" placeholder="试试：偏微分方程 / PDE / MTH118 / Releases …" autocomplete="off" autofocus />
       </div>
-      <div class="empty" style="margin-top:20px;">
+      <p class="f-count" id="s-count" hidden></p>
+
+      <div id="s-initial" class="empty" style="margin-top:18px;">
         <span class="e-star">✦</span>
-        <h3>搜索将在首批真实内容导入后启用</h3>
-        <p>
-          方案为 Pagefind 静态索引：构建时生成索引，访客在浏览器内完成查询，无需服务器；
-          将评估中文分词，让中文主题、英文题名与课程代码都能进入预期结果。
-          PDF 正文与扫描件 OCR 检索作为后续任务单独验收。
-        </p>
+        <h3>输入关键词开始搜索</h3>
+        <p>索引在每次网站构建时自动生成，课程、笔记、随笔、作品页面全部可搜；中文主题、英文题名与课程代码均支持。</p>
       </div>
+
+      <div id="s-none" class="empty" style="margin-top:18px;" hidden>
+        <span class="e-star">🔍</span>
+        <h3>没有匹配的结果</h3>
+        <p>换个关键词试试——中文可用主题词（如"泛函分析"），课程用代码（如 MTH118），作品可用英文名。</p>
+      </div>
+
+      <div id="s-error" class="empty" style="margin-top:18px;" hidden>
+        <span class="e-star">⚠</span>
+        <h3>本机开发模式暂无搜索索引</h3>
+        <p>搜索索引由构建步骤生成：请使用线上站点（analysis2077.github.io），或本机执行 <b>npm run build && npm run preview</b> 后再试。</p>
+      </div>
+
+      <div id="s-results" class="search-results" hidden></div>
+      <p style="margin-top:16px; text-align:center;">
+        <button id="s-more" class="btn btn-ghost btn-sm" hidden>加载更多结果 ↓</button>
+      </p>
     </section>
   </div>
+
+  <script>
+    const qEl = document.getElementById('s-q') as HTMLInputElement;
+    const countEl = document.getElementById('s-count')!;
+    const initialEl = document.getElementById('s-initial')!;
+    const noneEl = document.getElementById('s-none')!;
+    const errorEl = document.getElementById('s-error')!;
+    const resultsEl = document.getElementById('s-results')!;
+    const moreBtn = document.getElementById('s-more') as HTMLButtonElement;
+
+    const PAGE = 8;
+    const CRUMB: Record<string, string> = {
+      '': '首页', 'about': '关于', 'courses': '课程笔记', 'notes': '个人笔记',
+      'essays': '随笔', 'talks': '讲课与讨论班', 'works': '作品',
+    };
+
+    type PF = any;
+    let pagefind: PF = null;
+    let search: any = null;
+    let shown = 0;
+    let seq = 0;
+
+    async function loadPagefind(): Promise<PF> {
+      if (pagefind) return pagefind;
+      // /pagefind 由构建步骤生成，运行时动态加载；@vite-ignore 阻止打包器静态解析
+      const url = '/pagefind/pagefind.js';
+      pagefind = await import(/* @vite-ignore */ url);
+      return pagefind;
+    }
+
+    function show(state: 'initial' | 'none' | 'error' | 'results') {
+      initialEl.hidden = state !== 'initial';
+      noneEl.hidden = state !== 'none';
+      errorEl.hidden = state !== 'error';
+      resultsEl.hidden = state !== 'results';
+      if (state !== 'results') { countEl.hidden = true; moreBtn.hidden = true; }
+    }
+
+    function crumbOf(url: string): string {
+      const parts = url.replace(/^\/|\/$/g, '').split('/');
+      const labels = parts.map((p, i) => (i === 0 ? CRUMB[p] ?? p : decodeURIComponent(p).replace(/\/$/, '')));
+      return labels.join(' › ');
+    }
+
+    function cardOf(data: any): HTMLAnchorElement {
+      const a = document.createElement('a');
+      a.className = 'sr-card';
+      a.href = data.url;
+      const title = (data.meta?.title ?? data.url).replace(/ · The Unfinished Way$/, '');
+      const crumb = document.createElement('div');
+      crumb.className = 'sr-crumb';
+      crumb.textContent = crumbOf(data.url);
+      const h = document.createElement('div');
+      h.className = 'sr-title';
+      h.textContent = title;
+      const ex = document.createElement('div');
+      ex.className = 'sr-excerpt';
+      ex.innerHTML = data.excerpt ?? ''; // Pagefind 生成的本站内容摘要，含 <mark> 高亮
+      a.append(crumb, h, ex);
+      return a;
+    }
+
+    async function renderMore() {
+      if (!search) return;
+      const batch = search.results.slice(shown, shown + PAGE);
+      const frag = document.createDocumentFragment();
+      for (const r of batch) {
+        const data = await r.data();
+        frag.appendChild(cardOf(data));
+      }
+      shown += batch.length;
+      resultsEl.appendChild(frag);
+      moreBtn.hidden = shown >= search.results.length;
+    }
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    qEl.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(run, 180);
+    });
+
+    async function run() {
+      const q = qEl.value.trim();
+      const my = ++seq;
+      if (!q) { search = null; shown = 0; resultsEl.innerHTML = ''; show('initial'); return; }
+      let pf: PF;
+      try {
+        pf = await loadPagefind();
+      } catch {
+        if (my === seq) show('error');
+        return;
+      }
+      const res = await pf.search(q);
+      if (my !== seq) return; // 已有更新的查询，丢弃旧结果
+      search = res;
+      shown = 0;
+      resultsEl.innerHTML = '';
+      if (!search.results.length) { show('none'); return; }
+      countEl.hidden = false;
+      countEl.innerHTML = `找到 <b>${search.results.length}</b> 条结果`;
+      show('results');
+      await renderMore();
+    }
+
+    moreBtn.addEventListener('click', renderMore);
+  </script>
 </Base>

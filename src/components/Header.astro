@@ -3,7 +3,7 @@ import { SITE } from '../data/site';
 const path = Astro.url.pathname;
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
-<header class="site-head">
+<header class="site-head" data-pagefind-ignore>
   <div class="wrap head-in">
     <a class="brand" href="/" aria-label="返回首页">
       <img class="brand-logo" src="/schale.png" alt="夏莱标志" />

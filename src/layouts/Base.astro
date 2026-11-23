@@ -8,8 +8,9 @@ import { SITE } from '../data/site';
 interface Props {
   title?: string;
   desc?: string;
+  noindex?: boolean; // true 时整页排除出 Pagefind 搜索索引
 }
-const { title, desc = SITE.desc } = Astro.props;
+const { title, desc = SITE.desc, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.tagline}`;
 ---
 <!doctype html>
@@ -22,7 +23,7 @@ const pageTitle = title ? `${title} · ${SITE.name}` : `${SITE.name} · ${SITE.t
     <link rel="icon" type="image/png" href="/schale.png" />
     <title>{pageTitle}</title>
   </head>
-  <body>
+  <body data-pagefind-ignore={noindex ? '' : undefined}>
     <Header />
     <main><slot /></main>
     <Footer />

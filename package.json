@@ -11,5 +11,9 @@
   "dependencies": {
     "astro": "^5.7.0",
     "katex": "^0.16.22"
+  },
+  "devDependencies": {
+    "astro-pagefind": "^2.0.1",
+    "pagefind": "^1.6.0"
   }
 }
