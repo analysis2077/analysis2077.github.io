@@ -42,8 +42,12 @@ const materials = seminar?.materials ?? [];
             <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">{seminar!.name}{seminar!.en && <> · <i style="color:var(--muted);">{seminar!.en}</i></>}</span></div>
             {seminar!.period && <div class="dos-row"><span class="dos-k">举办时段</span><span class="dos-v">{seminar!.period}</span></div>}
             {seminar!.org && <div class="dos-row"><span class="dos-k">组织 / 地点</span><span class="dos-v">{seminar!.org}</span></div>}
-            <div class="dos-row"><span class="dos-k">材料</span><span class="dos-v">{materials.length} 份</span></div>
-            <div class="dos-row"><span class="dos-k">讲课视频</span><span class="dos-v">{videos.length > 0 ? `${videos.length} 段（外链）` : '暂无 —— 视频不是讨论班的必需项'}</span></div>
+            <div class="dos-row"><span class="dos-k">材料</span><span class="dos-v">{materials.length > 0 ? 'Weekly Lecture Notes' : <span style="color:#B7C9DA;">暂无</span>}</span></div>
+            <div class="dos-row"><span class="dos-k">讲课视频</span><span class="dos-v">
+              {videos.length > 0
+                ? videos.map((v) => <a href={v.url} target="_blank" rel="noopener" style="margin-right:12px;">🎬 {v.title} ↗</a>)
+                : '无'}
+            </span></div>
           </div>
         </div>
       )}

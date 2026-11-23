@@ -22,8 +22,8 @@ import { SEMINARS, LECTURES } from '../../data/talks';
               <h3>{s.name}</h3>
               <p class="vc-zh">{s.desc.slice(0, 80)}……</p>
               <div class="cc-meta">
-                <span class="tag">{s.materials.length} 份材料</span>
-                <span class="tag">{s.videos.length > 0 ? `${s.videos.length} 段视频` : '暂无视频'}</span>
+                {s.materials.length > 0 && <span class="tag">每周讲义</span>}
+                {s.videos.length > 0 && <span class="tag">{s.videos.length} 段视频</span>}
               </div>
               <div class="cc-foot"><span>讨论班条目</span><span>进入 →</span></div>
             </a>
