@@ -1,12 +1,13 @@
 ---
 import Breadcrumb from './Breadcrumb.astro';
-// 子页面顶部横幅；theme: '' | 'gehenna' | 'trinity'
+// 子页面顶部横幅；theme 为学院主题类名（对应 global.css 的 .page-hero.th-* 变体）
+type Theme = '' | 'gehenna' | 'trinity' | 'millennium' | 'abydos' | 'shanhaijing' | 'hyakkiyako' | 'schale';
 interface Props {
   en: string;
   zh: string;
   desc?: string;
   crumbs: { label: string; href?: string }[];
-  theme?: '' | 'gehenna' | 'trinity';
+  theme?: Theme;
 }
 const { en, zh, desc, crumbs, theme = '' } = Astro.props;
 ---

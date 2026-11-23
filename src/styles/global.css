@@ -208,18 +208,31 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .cc-sample { color: var(--c-done); font-weight: 700; }
 .cc-ph { color: #B7C9DA; }
 
+/* 学院主题（色值取自 BlueArchiveMathBook 模板 ba-themes.sty） */
+.th-millennium  { --th-accent: #2F80ED; --th-deep: #1D4ED8; --th-bg: #EDF4FF; --th-border: #C9D9F7; }
+.th-abydos      { --th-accent: #D4A24A; --th-deep: #4A3417; --th-bg: #FBF3E2; --th-border: #EBD9A8; }
+.th-trinity     { --th-accent: #D6A83A; --th-deep: #8A6A1F; --th-bg: #FDF7E8; --th-border: #EBD9A8; }
+.th-shanhaijing { --th-accent: #1B9A8A; --th-deep: #0E5F55; --th-bg: #EEFAF6; --th-border: #BFE5DA; }
+.th-hyakkiyako  { --th-accent: #E86A5B; --th-deep: #7A2E48; --th-bg: #FDF0EE; --th-border: #F3CFC7; }
+.th-gehenna     { --th-accent: #C8404A; --th-deep: #8E2F38; --th-bg: #FBF0F0; --th-border: #EDC9CB; }
+
 /* 学科卡片 */
 .disc-card { display: flex; flex-direction: column; padding: 18px; gap: 4px; }
-.disc-card .dc-en { font-size: 11px; letter-spacing: 1.5px; color: var(--sky); text-transform: uppercase; }
+.disc-card .dc-en { font-size: 11px; letter-spacing: 1.5px; color: var(--th-accent, var(--sky)); text-transform: uppercase; }
 .disc-card h3 { font-size: 17px; margin: 0; }
 .dc-count { font-size: 12.5px; color: var(--muted); }
-.dc-arrow { position: absolute; right: 16px; bottom: 14px; color: var(--sky); font-weight: 700; }
-.disc-card.th-gehenna::before { background: linear-gradient(180deg, var(--gehenna), var(--gehenna-deep)); }
+.dc-arrow { position: absolute; right: 16px; bottom: 14px; color: var(--th-accent, var(--sky)); font-weight: 700; }
 .disc-card::before {
   content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  background: linear-gradient(180deg, var(--sky), var(--deep));
+  background: linear-gradient(180deg, var(--th-accent, var(--sky)), var(--th-deep, var(--deep)));
 }
 .dc-soon { position: absolute; right: 14px; top: 14px; font-size: 11px; color: #B7C9DA; letter-spacing: 1px; }
+
+/* 主题标签（各学院） */
+.tag.th-millennium  { background: var(--th-bg, #EDF4FF); color: #1D4ED8; border-color: #C9D9F7; }
+.tag.th-abydos      { background: var(--th-bg, #FBF3E2); color: #4A3417; border-color: #EBD9A8; }
+.tag.th-shanhaijing { background: var(--th-bg, #EEFAF6); color: #0E5F55; border-color: #BFE5DA; }
+.tag.th-hyakkiyako  { background: var(--th-bg, #FDF0EE); color: #7A2E48; border-color: #F3CFC7; }
 
 /* 卷册（分册）卡片 */
 .vol-card { padding: 18px; }
@@ -280,6 +293,20 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .page-hero.th-gehenna h1 { color: var(--gehenna-deep); }
 .page-hero.th-gehenna .ph-en { color: var(--gehenna); }
 .ph-desc { color: var(--muted); max-width: 46em; margin: 0; font-size: 14.5px; }
+
+/* 子页头部 · 学院主题变体（色值取自模板 ba-themes.sty） */
+.page-hero.th-millennium { background: linear-gradient(180deg, #E3EEFF 0%, #F8FBFF 100%); border-bottom-color: #C9D9F7; }
+.page-hero.th-millennium h1 { color: #1D4ED8; }
+.page-hero.th-millennium .ph-en { color: #2F80ED; }
+.page-hero.th-abydos { background: linear-gradient(180deg, #F8EED8 0%, #FDFAF3 100%); border-bottom-color: #EBD9A8; }
+.page-hero.th-abydos h1 { color: #8A6A1F; }
+.page-hero.th-abydos .ph-en { color: #B8862F; }
+.page-hero.th-shanhaijing { background: linear-gradient(180deg, #E2F5EF 0%, #F7FDFB 100%); border-bottom-color: #BFE5DA; }
+.page-hero.th-shanhaijing h1 { color: #0E5F55; }
+.page-hero.th-shanhaijing .ph-en { color: #1B9A8A; }
+.page-hero.th-hyakkiyako { background: linear-gradient(180deg, #FBEAE7 0%, #FEF8F6 100%); border-bottom-color: #F3CFC7; }
+.page-hero.th-hyakkiyako h1 { color: #7A2E48; }
+.page-hero.th-hyakkiyako .ph-en { color: #E86A5B; }
 
 /* 面包屑 */
 .crumbs { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12.5px; color: var(--muted); margin-bottom: 14px; }
@@ -408,7 +435,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
   border: 2px dashed rgba(29, 78, 137, 0.28); border-radius: 14px;
   background: rgba(255, 255, 255, 0.65); padding: 46px 24px; text-align: center;
 }
-.empty .e-star { font-size: 30px; color: var(--sky); display: block; margin-bottom: 8px; }
+.empty .e-star { font-size: 30px; color: var(--th-accent, var(--sky)); display: block; margin-bottom: 8px; }
 .empty h3 { font-size: 17px; }
 .empty p { color: var(--muted); font-size: 13.5px; max-width: 36em; margin: 0 auto; }
 .empty .e-cards { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }

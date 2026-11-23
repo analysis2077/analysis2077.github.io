@@ -1,29 +1,33 @@
-// 个人笔记占位数据 —— 学科词表为规划 §6.1 的示例，最终以站主实际清单为准
+// 个人笔记学科数据 —— 六大学科 + 学院配色方案（站主 2026-11-23 确认）
+// 学院配色沿用 BlueArchiveMathBook 模板的七学院主题系统；id 一经发布保持稳定（pde 的已发布 URL 不变）
+export type SchoolTheme =
+  | 'schale'
+  | 'millennium'
+  | 'gehenna'
+  | 'trinity'
+  | 'shanhaijing'
+  | 'hyakkiyako'
+  | 'abydos';
+
 export interface Discipline {
-  id: string;
-  name: string;
-  en: string;
-  count: number;       // 已有条目数（占位）
-  theme?: 'gehenna';   // 学院主题
-  built?: boolean;     // 骨架阶段已建目录页
+  id: string;          // URL 标识，发布后不再改动
+  name: string;        // 中文展示名
+  en: string;          // 英文名
+  theme: SchoolTheme;  // 学院配色
+  count: number;       // 已收录分册数
+  built?: boolean;     // 已建学科目录页
 }
 
 export const DISCIPLINES: Discipline[] = [
-  { id: 'analysis', name: '数学分析', en: 'Mathematical Analysis', count: 0 },
-  { id: 'real', name: '实分析与测度', en: 'Real Analysis & Measure', count: 0 },
-  { id: 'functional', name: '泛函分析', en: 'Functional Analysis', count: 0 },
-  { id: 'complex', name: '复分析', en: 'Complex Analysis', count: 0 },
-  { id: 'fourier', name: 'Fourier 与调和分析', en: 'Fourier & Harmonic Analysis', count: 0 },
-  { id: 'ode', name: '常微分方程', en: 'Ordinary Differential Equations', count: 0 },
-  { id: 'pde', name: '偏微分方程', en: 'Partial Differential Equations', count: 1, theme: 'gehenna', built: true },
-  { id: 'linalg', name: '线性代数与矩阵', en: 'Linear Algebra & Matrices', count: 0 },
-  { id: 'algebra', name: '抽象代数', en: 'Abstract Algebra', count: 0 },
-  { id: 'geometry', name: '拓扑与几何', en: 'Topology & Geometry', count: 0 },
-  { id: 'probability', name: '概率与随机过程', en: 'Probability & Stochastic Processes', count: 0 },
-  { id: 'numerical', name: '数值与计算', en: 'Numerics & Computation', count: 0 },
+  { id: 'analysis',   name: '数学分析',       en: 'Mathematical Analysis',              theme: 'millennium',  count: 0, built: true },
+  { id: 'measure',    name: '测度与积分',     en: 'Measure & Integration',              theme: 'abydos',      count: 0, built: true },
+  { id: 'complex',    name: '复分析',         en: 'Complex Analysis',                   theme: 'trinity',     count: 0, built: true },
+  { id: 'ode',        name: '常微分方程',     en: 'Ordinary Differential Equations',    theme: 'shanhaijing', count: 0, built: true },
+  { id: 'pde',        name: '基础偏微分方程', en: 'Basic Partial Differential Equations', theme: 'gehenna',   count: 1, built: true },
+  { id: 'functional', name: '泛函分析',       en: 'Functional Analysis',                theme: 'hyakkiyako',  count: 0, built: true },
 ];
 
-// 系列（规划 §6.2）
+// 系列（跨学科长期整理）
 export const SERIES = [
   {
     id: 'the-unfinished-way',
