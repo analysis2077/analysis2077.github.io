@@ -1,5 +1,7 @@
-// 课程占位数据 —— 骨架阶段用于展示版式
-// 真实课程清单（约 20 门）由站主按规划附录 B1 提供后批量替换
+// 课程数据 —— 本科阶段已修课程（站主 2026-11-23 提供，17 门）
+// 学年映射：Y1S1 = 2022–2023 秋季学期起；Y4S2 = 2025–2026 春季学期
+// 研究生阶段（慕尼黑工大）待首个完整学期结束后补充
+// 注：MTH323 / MTH315 / MTH310 英文题名为站主提供原名，其余英文题名为中文对应译名，以官方成绩单为准
 export interface Course {
   code: string;
   title: string;
@@ -15,28 +17,32 @@ export interface Course {
 }
 
 export const COURSES: Course[] = [
-  {
-    code: 'MTH118',
-    title: 'Analysis II',
-    titleZh: '分析 II',
-    stage: '本科',
-    year: '2025–2026',
-    semester: 'Semester 2',
-    subject: '分析',
-    status: '整理中',
-    blurb: '首个真实样本：248 页合并 PDF，含知识笔记、6 次 TTL 与 3 份往年试题。',
-    sample: true,
-    href: '/courses/mth118/',
-  },
-  { code: 'MTH101', title: 'Calculus I', titleZh: '微积分 I', stage: '本科', year: '2023–2024', semester: 'Semester 1', subject: '分析', status: '已归档', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH103', title: 'Linear Algebra I', titleZh: '线性代数 I', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '代数', status: '已归档', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH201', title: 'Real Analysis', titleZh: '实分析', stage: '本科', year: '2024–2025', semester: 'Semester 1', subject: '分析', status: '阶段完成', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH205', title: 'Complex Analysis', titleZh: '复分析', stage: '本科', year: '2024–2025', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH210', title: 'Abstract Algebra', titleZh: '抽象代数', stage: '本科', year: '2024–2025', semester: 'Semester 2', subject: '代数', status: '整理中', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH301', title: 'General Topology', titleZh: '点集拓扑', stage: '本科', year: '2025–2026', semester: 'Semester 1', subject: '几何拓扑', status: '整理中', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH501', title: 'Partial Differential Equations', titleZh: '偏微分方程', stage: '研究生', year: '2025–2026', semester: 'Semester 1', subject: '分析', status: '整理中', blurb: '占位示例条目，用于展示课程卡片版式。' },
-  { code: 'MTH502', title: 'Functional Analysis', titleZh: '泛函分析', stage: '研究生', year: '2025–2026', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '占位示例条目，用于展示课程卡片版式。' },
+  // —— Y1S1 · 2022–2023 秋季学期 ——
+  { code: 'MTH029', title: 'Calculus', titleZh: '微积分', stage: '本科', year: '2022–2023', semester: 'Semester 1', subject: '分析', status: '整理中', blurb: '大一起点课：极限、导数与积分的标准演算体系。' },
+  { code: 'MTH017', title: 'Linear Algebra', titleZh: '线性代数', stage: '本科', year: '2022–2023', semester: 'Semester 1', subject: '代数与离散', status: '整理中', blurb: '矩阵、向量空间与线性方程组。' },
+  // —— Y1S2 · 2022–2023 春季学期 ——
+  { code: 'MTH008', title: 'Multivariable Calculus', titleZh: '多元微积分', stage: '本科', year: '2022–2023', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '偏导数、重积分与多元函数微积分。' },
+  // —— Y2S1 · 2023–2024 秋季学期 ——
+  { code: 'MTH117', title: 'Analysis I', titleZh: '分析一', stage: '本科', year: '2023–2024', semester: 'Semester 1', subject: '分析', status: '整理中', blurb: '序列与级数、ε–δ 语言与实数完备性。' },
+  // —— Y2S2 · 2023–2024 春季学期 ——
+  { code: 'MTH118', title: 'Analysis II', titleZh: '分析二', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '多元分析、一致收敛与 Riemann 积分。已有 248 页合并 PDF 样本（知识笔记 · TTL · 往年试题）。', sample: true, href: '/courses/mth118/' },
+  { code: 'MTH106', title: 'Introduction to Differential Equations', titleZh: '微分方程入门', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '方程与建模', status: '整理中', blurb: '一阶方程、二阶线性方程与基础解法。' },
+  // —— Y3S1 · 2024–2025 秋季学期 ——
+  { code: 'MTH212', title: 'Differential Equations and Control', titleZh: '微分方程与控制', stage: '本科', year: '2024–2025', semester: 'Semester 1', subject: '方程与建模', status: '整理中', blurb: '线性系统、稳定性分析与控制入门。' },
+  { code: 'MTH229', title: 'Discrete Mathematics', titleZh: '离散数学', stage: '本科', year: '2024–2025', semester: 'Semester 1', subject: '代数与离散', status: '整理中', blurb: '集合、图论、组合与逻辑基础。' },
+  // —— Y3S2 · 2024–2025 春季学期 ——
+  { code: 'MTH208', title: 'Numerical Analysis', titleZh: '数值分析', stage: '本科', year: '2024–2025', semester: 'Semester 2', subject: '计算与数值', status: '整理中', blurb: '数值逼近、迭代法与误差分析。' },
+  { code: 'MTH210', title: 'Partial Differential Equations', titleZh: '偏微分方程', stage: '本科', year: '2024–2025', semester: 'Semester 2', subject: '方程与建模', status: '整理中', blurb: '二阶线性方程分类、特征线法与经典方程。' },
+  { code: 'MTH224', title: 'Metric Spaces', titleZh: '度量空间', stage: '本科', year: '2024–2025', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '完备性、紧性与连续映射的抽象框架。' },
+  // —— Y4S1 · 2025–2026 秋季学期 ——
+  { code: 'MTH420', title: 'Measure and Integration', titleZh: '测度与积分', stage: '本科', year: '2025–2026', semester: 'Semester 1', subject: '分析', status: '整理中', blurb: '测度论、Lebesgue 积分与收敛定理。' },
+  { code: 'MTH418', title: 'Advanced Partial Differential Equations', titleZh: '高级偏微分方程', stage: '本科', year: '2025–2026', semester: 'Semester 1', subject: '方程与建模', status: '整理中', blurb: '弱导数、Sobolev 空间与能量估计。' },
+  { code: 'MTH323', title: 'Topology', stage: '本科', year: '2025–2026', semester: 'Semester 1', subject: '几何与拓扑', status: '整理中', blurb: '开集、连通性、紧性与同伦入门。' },
+  { code: 'MTH315', title: 'Differential Geometry', stage: '本科', year: '2025–2026', semester: 'Semester 1', subject: '几何与拓扑', status: '整理中', blurb: '曲线曲面、第一基本形式与 Gauss 曲率。' },
+  // —— Y4S2 · 2025–2026 春季学期 ——
+  { code: 'MTH310', title: 'Functional Analysis', stage: '本科', year: '2025–2026', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: 'Banach / Hilbert 空间、有界算子与对偶空间。' },
+  { code: 'MTH308', title: 'Continuum Mechanics', titleZh: '连续介质力学', stage: '本科', year: '2025–2026', semester: 'Semester 2', subject: '方程与建模', status: '整理中', blurb: '应力应变、守恒律与弹性、流体基础。' },
 ];
 
 export const STAGES = ['本科', '研究生'] as const;
-export const SUBJECTS = ['分析', '代数', '几何拓扑'] as const;
+export const SUBJECTS = ['分析', '方程与建模', '代数与离散', '几何与拓扑', '计算与数值'] as const;
