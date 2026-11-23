@@ -30,6 +30,13 @@
 - **渲染方式**：`pdftoppm -jpeg -jpegopt quality=88 -r 110`
 - **页面映射**：demo-title.jpg = p1（扉页）；demo-toc.jpg = p3（目录）；demo-chapter.jpg = p6（第 2 章章首）；demo-theorems.jpg = p7（定理盒与证明正文）
 
+## site/public/works/school-course-notes/*.jpg（6 张作品示例图）
+
+- **内容**：School Course Notes Template v1.0.1 样书 sample-output.pdf（18 页）实编译截页；站主原创模板输出，无第三方美术素材
+- **来源文件**：工作区 `extracted/SchoolNotes-v1_0/school-course-notes-template-v1.0.1/scn_v101/sample-output.pdf`（站主 2026-11-23 提供 E:\学校笔记整理\school-course-notes-template-v1.0.zip 解包；zip 名 v1.0，内容实为 v1.0.1）
+- **渲染方式**：`pdftoppm -jpeg -jpegopt quality=88 -r 110`
+- **页面映射**：demo-title.jpg = p1（扉页）；demo-revision.jpg = p4（修订历史）；demo-knowledge.jpg = p6（第 1 章 + 学习目标）；demo-theorems.jpg = p7（考点盒正文）；demo-ttl.jpg = p10（TTL 题目页）；demo-pastpaper.jpg = p13（评分表 + 解答）
+
 ## site/public/avatar.jpg、site/public/home-bg.jpg
 
 - 站主提供 / 前期会话从模板素材中选定（如有变更在此更新记录）。

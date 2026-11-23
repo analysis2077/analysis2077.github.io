@@ -1,0 +1,119 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+
+// 示例图截自模板样书 sample-output.pdf（v1.0.1 实编译输出），渲染参数见仓库 ASSETS-SOURCES.md
+const SHOTS = [
+  { src: '/works/school-course-notes/demo-title.jpg', cap: '扉页 · 课程代码 + 学年 / 学期 / 版本元信息栏' },
+  { src: '/works/school-course-notes/demo-revision.jpg', cap: '修订历史 · 逐版记录日期 / 编辑 / 变更' },
+  { src: '/works/school-course-notes/demo-knowledge.jpg', cap: 'Part I 知识笔记 · 学习目标盒 + 行内式定理' },
+  { src: '/works/school-course-notes/demo-theorems.jpg', cap: '正文 · 考点盒与定理样式的克制排版' },
+  { src: '/works/school-course-notes/demo-ttl.jpg', cap: 'Part II TTL 材料 · 场次信息 + 题目环境' },
+  { src: '/works/school-course-notes/demo-pastpaper.jpg', cap: 'Part III 往年试题 · 评分表 + 完整解答 + 跨卷分类' },
+];
+
+const META = String.raw`\School{Department of Mathematical Sciences}
+\CourseCode{MTH123}
+\CourseTitle{Course Name}
+\AcademicYear{2026--2027}
+\Term{Semester 1}
+\Instructor{Teaching Team}
+\Coordinator{Student Society Editorial Group}
+\DocumentVersion{1.0.1}
+\LastUpdated{15 July 2026}`;
+
+const BUILD = String.raw`latexmk -xelatex main.tex    # 或 pdfLaTeX：latexmk -pdf main.tex
+
+# 学生版 / 编辑版：一个类选项切换
+\documentclass[solutions]{course-notes}     # 显示 coursesolution
+\documentclass[nosolutions]{course-notes}   # 隐藏全部解答`;
+---
+<Base title="School Course Notes Template · 作品">
+  <PageHero
+    theme="trinity"
+    en="Work File"
+    zh="School Course Notes Template"
+    desc="学校课程笔记的合订文档模板 —— 一门课一份：知识笔记、TTL 材料、往年试题三部分。本站课程栏目的三类资料划分正来源于此。"
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '作品', href: '/works/' },
+      { label: 'School Course Notes Template' },
+    ]}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Work Record</span><span>v1.0.1 · 2026-07-15</span></div>
+        <div class="dos-photo">
+          <img
+            src="/works/school-course-notes/demo-title.jpg"
+            alt="School Course Notes 样书扉页"
+            style="width:100%;aspect-ratio:1/1.414;object-fit:cover;border:2px solid var(--sky);border-radius:12px;"
+          />
+          <span class="plate">LATEX · COURSE NOTES</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">名称</span><span class="dos-v">School Course Notes Template <span class="tag">LaTeX 模板</span><span class="tag">课程笔记</span></span></div>
+          <div class="dos-row"><span class="dos-k">用途</span><span class="dos-v">学生社团共享课程笔记：一门课一份合订文档，按「知识笔记 → TTL 材料 → 往年试题」三部分组织，附编辑规范附录与修订历史。</span></div>
+          <div class="dos-row"><span class="dos-k">当前版本</span><span class="dos-v">v1.0.1（2026-07-15，course-notes.cls）</span></div>
+          <div class="dos-row"><span class="dos-k">编译环境</span><span class="dos-v">推荐 latexmk -xelatex，亦可 pdfLaTeX；仅用 TeX Live 常见宏包</span></div>
+          <div class="dos-row"><span class="dos-k">类选项</span><span class="dos-v">solutions / nosolutions —— 编辑版显示解答，学生版整体隐藏</span></div>
+          <div class="dos-row"><span class="dos-k">文件构成</span><span class="dos-v">course-notes.cls · main.tex 课程元数据 · chapters/ 四章示例 · frontmatter/ 修订历史 · tables/ figures/</span></div>
+          <div class="dos-row"><span class="dos-k">许可 / 下载</span><span class="dos-v muted">站主自制 · 发布入口待定（不设无效按钮）</span></div>
+          <div class="dos-row"><span class="dos-k">关联作品</span><span class="dos-v"><a href="/courses/mth118/"><b>MTH118 · Analysis II</b></a> 课程页的三类资料结构即沿用本模板的划分（规划 §4.2）</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" style="padding-top:10px;">
+      <SecHead no="01" en="Screenshots" zh="示例图" />
+      <div class="shot-grid">
+        {SHOTS.map((s) => (
+          <figure>
+            <img src={s.src} alt={s.cap} loading="lazy" />
+            <figcaption>{s.cap}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <p style="font-size:12.5px;color:var(--muted);margin-top:12px;">示例图截自模板样书 sample-output.pdf（18 页，v1.0.1 实编译输出）。</p>
+    </section>
+
+    <section class="sec">
+      <SecHead no="02" en="Quick Start" zh="快速上手" />
+      <p style="margin-bottom:10px;">课程元数据集中在 main.tex 开头，一门课换一段即可复用：</p>
+      <pre class="codebox">{META}</pre>
+      <p style="margin:16px 0 10px;">编译与版本切换：</p>
+      <pre class="codebox">{BUILD}</pre>
+    </section>
+
+    <section class="sec">
+      <SecHead no="03" en="Feature Overview" zh="特性一览" />
+      <div class="grid-2">
+        <div class="cut-card feat-card">
+          <span class="fc-ico">📚</span>
+          <h3>一门课一份合订本</h3>
+          <p>四部分结构：Part I 知识笔记、Part II TTL 材料、Part III 往年试题、Part IV 编辑参考（附录）。扉页元信息 + 文档信息页 + 修订历史表构成完整文档控制链。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">∑</span>
+          <h3>三组环境各司其职</h3>
+          <p>标准数学环境（definition / theorem / lemma / proposition / corollary / example / exercise / remark / observation / assumption）；信息盒（learningobjectives / keypoint / examnote / commonerror / editorialnote）；课程资料环境（ttlproblem / pastpaperproblem / coursesolution / markscheme）。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">🧑‍🎓</span>
+          <h3>学生版 / 编辑版</h3>
+          <p>nosolutions 类选项整体隐藏 coursesolution 环境——同一份源文件，编辑组看完整版、发给学生的是无解答版，不需要维护两个仓库。</p>
+        </div>
+        <div class="cut-card feat-card">
+          <span class="fc-ico">🤝</span>
+          <h3>为多人协作而生</h3>
+          <p>内置编辑与写作规范附录（术语缩写、难度标签、审阅规则）；共享类文件不逐课程魔改，改进集中评审后按版本统一分发——这是模板自己的编辑原则。</p>
+        </div>
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        <b>版本记录：</b>v1.0.1（2026-07-15）当前版本；设计刻意克制——衬线正文 + 无衬线标题 + 单一低饱和色系，适合正式的社团共享材料。
+      </div>
+    </section>
+  </div>
+</Base>
