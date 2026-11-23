@@ -12,7 +12,7 @@ const essay = ESSAYS.find((e) => e.id === 'real-completeness')!;
 const sections = [
   { href: '/about/', no: '01', zh: '关于', en: 'About', desc: '站主是谁、在读什么方向、从哪里开始读。' },
   { href: '/courses/', no: '02', zh: '课程笔记', en: 'Courses', desc: '学校课程资料库：知识笔记 · TTL 习题 · 往年试题。' },
-  { href: '/notes/', no: '03', zh: '个人笔记', en: 'Notes', desc: "六个大学科的长期笔记档案，一学科一学院配色，按系列与分册整理。" },
+  { href: '/notes/', no: '03', zh: '个人笔记', en: 'Notes', desc: "六门学科的长期笔记档案，一门学科一本笔记，一学科一学院配色。" },
   { href: '/essays/', no: '04', zh: '随笔', en: 'Essays', desc: '三大板块：数学史与人物 · 概念科普 · 理论专题。' },
   { href: '/talks/', no: '05', zh: '讲课与讨论班', en: 'Talks', desc: '以讨论班为单位的条目式归档，视频外链跳转。' },
   { href: '/works/', no: '06', zh: '作品', en: 'Works', desc: '自制 LaTeX 模板与排版工具，全部开放下载。' },
@@ -95,8 +95,8 @@ const sections = [
             <span>作品详情 →</span>
           </div>
         </a>
-        <a class="cut-card vol-card" href="/notes/pde/basic-pde/">
-          <span class="vc-series">THE UNFINISHED WAY · PART I</span>
+        <a class="cut-card vol-card" href="/notes/pde/">
+          <span class="vc-series">THE UNFINISHED WAY</span>
           <h3>Basic Partial Differential Equations</h3>
           <p class="vc-zh">偏微分方程基础 · 302 页 · 分析准备 → Sobolev 空间</p>
           <div class="cc-meta">
@@ -106,7 +106,7 @@ const sections = [
           </div>
           <div class="cc-foot">
             <span>✓ 真实样本 · Gehenna 主题</span>
-            <span>学科目录 →</span>
+            <span>笔记档案 →</span>
           </div>
         </a>
         <CourseCard course={mth118} />

@@ -1,22 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
-import { DISCIPLINES } from '../../data/notes';
-
-const SCHOOL_CN: Record<string, string> = {
-  millennium: 'Millennium · 千禧',
-  abydos: 'Abydos · 阿拜多斯',
-  trinity: 'Trinity · 圣三一',
-  shanhaijing: 'Shanhaijing · 山海经',
-  gehenna: 'Gehenna · 格黑娜',
-  hyakkiyako: 'Hyakkiyako · 百鬼夜行',
-};
+import { DISCIPLINES, THEME_META } from '../../data/notes';
 ---
 <Base title="个人笔记">
   <PageHero
     en="Personal Notes"
     zh="个人笔记"
-    desc="六个大学科的长期笔记档案，每个学科一个学院配色：学科 → 专题 / 分册 → 章节。学科入口全部展示，不因条目少而分页。"
+    desc="六门学科的长期笔记档案，一门学科对应一本笔记，每个学科一个学院配色：学科 → 章节。学科入口全部展示，不因条目少而分页。"
     crumbs={[{ label: '首页', href: '/' }, { label: '个人笔记' }]}
   />
   <div class="wrap">
@@ -27,9 +18,9 @@ const SCHOOL_CN: Record<string, string> = {
             <span class="dc-en">{d.en}</span>
             <h3>{d.name}</h3>
             <div class="cc-meta">
-              <span class="tag" class:list={[`th-${d.theme}`]}>{SCHOOL_CN[d.theme]}</span>
+              <span class="tag" class:list={[`th-${d.theme}`]}>{THEME_META[d.theme].cn}</span>
             </div>
-            <span class="dc-count">{d.count > 0 ? `已收录 ${d.count} 册` : '分册整理中'}</span>
+            <span class="dc-count">{d.notebook ? `已收录 · ${d.notebook.pages} 页` : '笔记整理中'}</span>
             <span class="dc-arrow">→</span>
           </a>
         ))}
@@ -38,8 +29,8 @@ const SCHOOL_CN: Record<string, string> = {
     <section class="sec" style="padding-top:8px;">
       <div class="note-box">
         <b>主题约定：</b>每个学科的学院配色沿用 BlueArchiveMathBook 模板的学院主题系统——
-        同一学科的分册、章节横幅与网页页头将共用该配色，视觉上一眼可辨归属。
-        学科即使暂时只有一份笔记也保留独立目录页，便于日后扩充。
+        同一学科笔记的章节横幅与网页页头共用该配色，视觉上一眼可辨归属。
+        一门学科对应一本笔记：学科页即这本笔记的档案与目录。
       </div>
     </section>
   </div>

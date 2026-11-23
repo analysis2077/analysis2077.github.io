@@ -234,7 +234,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .tag.th-shanhaijing { background: var(--th-bg, #EEFAF6); color: #0E5F55; border-color: #BFE5DA; }
 .tag.th-hyakkiyako  { background: var(--th-bg, #FDF0EE); color: #7A2E48; border-color: #F3CFC7; }
 
-/* 卷册（分册）卡片 */
+/* 通用条目卡片（随笔 / 作品 / 笔记 / 讨论班共用） */
 .vol-card { padding: 18px; }
 .vol-card .vc-series { font-size: 11.5px; letter-spacing: 2px; color: var(--gehenna); font-weight: 700; }
 .vol-card h3 { font-size: 17px; }
@@ -397,6 +397,22 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
   border: 1.5px solid var(--sky); border-radius: 4px; padding: 2px 10px; background: #fff;
 }
 .dossier.th-gehenna .plate { color: var(--gehenna-deep); border-color: var(--gehenna); }
+/* 档案卡 · 其余学院主题（个人笔记学科页模板通用；色值同 .th-* 变量，条带统一“学院深色 → 藏青”保证白字可读） */
+.dossier.th-millennium .dos-strip { background: linear-gradient(90deg, #1D4ED8, var(--navy)); }
+.dossier.th-millennium .dos-photo { background: repeating-linear-gradient(-45deg, rgba(47,128,237,.06) 0 12px, transparent 12px 24px), linear-gradient(165deg, #fff, #EDF4FF); border-right-color: #C9D9F7; }
+.dossier.th-millennium .plate { color: #1D4ED8; border-color: #2F80ED; }
+.dossier.th-abydos .dos-strip { background: linear-gradient(90deg, #4A3417, var(--navy)); }
+.dossier.th-abydos .dos-photo { background: repeating-linear-gradient(-45deg, rgba(212,162,74,.08) 0 12px, transparent 12px 24px), linear-gradient(165deg, #fff, #FBF3E2); border-right-color: #EBD9A8; }
+.dossier.th-abydos .plate { color: #4A3417; border-color: #D4A24A; }
+.dossier.th-trinity .dos-strip { background: linear-gradient(90deg, #8A6A1F, var(--navy)); }
+.dossier.th-trinity .dos-photo { background: repeating-linear-gradient(-45deg, rgba(214,168,58,.08) 0 12px, transparent 12px 24px), linear-gradient(165deg, #fff, #FDF7E8); border-right-color: #EBD9A8; }
+.dossier.th-trinity .plate { color: #8A6A1F; border-color: #D6A83A; }
+.dossier.th-shanhaijing .dos-strip { background: linear-gradient(90deg, #0E5F55, var(--navy)); }
+.dossier.th-shanhaijing .dos-photo { background: repeating-linear-gradient(-45deg, rgba(27,154,138,.06) 0 12px, transparent 12px 24px), linear-gradient(165deg, #fff, #EEFAF6); border-right-color: #BFE5DA; }
+.dossier.th-shanhaijing .plate { color: #0E5F55; border-color: #1B9A8A; }
+.dossier.th-hyakkiyako .dos-strip { background: linear-gradient(90deg, #7A2E48, var(--navy)); }
+.dossier.th-hyakkiyako .dos-photo { background: repeating-linear-gradient(-45deg, rgba(232,106,91,.06) 0 12px, transparent 12px 24px), linear-gradient(165deg, #fff, #FDF0EE); border-right-color: #F3CFC7; }
+.dossier.th-hyakkiyako .plate { color: #7A2E48; border-color: #E86A5B; }
 .dos-info { padding: 18px 24px 20px; }
 .dos-row { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; }
 .dos-row:last-child { border-bottom: none; }
