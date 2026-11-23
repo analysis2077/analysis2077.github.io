@@ -1,0 +1,94 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import SecHead from '../../../components/SecHead.astro';
+import { ESSAYS } from '../../../data/essays';
+
+const essay = ESSAYS.find((e) => e.id === 'real-completeness')!;
+
+// 矩阵式结构：每个定理出发证明其余五条（对应 PDF 六个章节）
+const SECTIONS = [
+  { name: '确界存在定理', impl: '单调有界 · 闭区间套 · 有限覆盖 · 聚点 · Cauchy' },
+  { name: '单调有界定理', impl: '确界存在 · 闭区间套 · 有限覆盖 · 聚点 · Cauchy' },
+  { name: '有限覆盖定理（Heine–Borel）', impl: '确界存在 · 单调有界 · 闭区间套 · 聚点 · Cauchy' },
+  { name: '闭区间套定理', impl: '确界存在 · 单调有界 · 有限覆盖 · 聚点 · Cauchy' },
+  { name: 'Bolzano–Weierstrass 聚点定理', impl: '确界存在 · 单调有界 · 闭区间套 · 有限覆盖 · Cauchy' },
+  { name: 'Cauchy 收敛原理', impl: '确界存在 · 单调有界 · 闭区间套 · 有限覆盖 · 聚点' },
+];
+---
+<Base title={`${essay.title} · 随笔`}>
+  <PageHero
+    en="Essay · Theory Topics"
+    zh={essay.title}
+    desc={`${essay.titleEn} —— 以矩阵式结构给出实数系六大完备性定理的全部 ${essay.proofs} 条互相推导。`}
+    crumbs={[
+      { label: '首页', href: '/' },
+      { label: '随笔', href: '/essays/' },
+      { label: essay.title },
+    ]}
+  />
+  <div class="wrap">
+    <!-- 档案卡 -->
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Essay Record</span><span>{essay.date}</span></div>
+        <div class="dos-photo">
+          <svg viewBox="0 0 120 52" width="120" height="52" aria-hidden="true">
+            <ellipse cx="60" cy="26" rx="52" ry="18" fill="none" stroke="var(--sky)" stroke-width="3" opacity="0.55"/>
+            <text x="60" y="31" text-anchor="middle" font-size="17" font-weight="800" fill="var(--deep)">⇔ ×30</text>
+          </svg>
+          <span class="plate">THEORY TOPIC</span>
+          <span class="art-cap" style="position:static;transform:none;">六大定理 · 两两等价</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">题名</span><span class="dos-v">{essay.title} <span class="tag">理论专题</span></span></div>
+          <div class="dos-row"><span class="dos-k">作者</span><span class="dos-v">{essay.author}</span></div>
+          <div class="dos-row"><span class="dos-k">形式</span><span class="dos-v">PDF 讲义 · {essay.pages} 页 · {essay.proofs} 条证明</span></div>
+          <div class="dos-row"><span class="dos-k">标签</span><span class="dos-v">{essay.tags.map((t) => <span class="tag">{t}</span>)}</span></div>
+          <div class="dos-row"><span class="dos-k">摘要</span><span class="dos-v">{essay.abstract}</span></div>
+          <div class="dos-row"><span class="dos-k">整理说明</span><span class="dos-v">旧稿整理重发（2026-11-23）；网页逐条排版版为后续计划</span></div>
+        </div>
+      </div>
+      <p style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn" href={essay.pdf} target="_blank" rel="noopener">📖 在线阅读 PDF</a>
+        <a class="btn btn-ghost" href={essay.pdf} download>⬇ 下载 PDF（{essay.pages} 页 · 148 KB）</a>
+      </p>
+    </section>
+
+    <!-- 01 内容结构 -->
+    <section class="sec" style="padding-top:10px;">
+      <SecHead no="01" en="Structure" zh="内容结构 · 6 × 5 矩阵" />
+      <div class="chap-list">
+        {SECTIONS.map((s) => (
+          <div class="chap-item">
+            <span><b>{s.name}</b> <span style="color:var(--muted);">⇒ {s.impl}</span></span>
+            <span class="ci-page">5 条证明</span>
+          </div>
+        ))}
+      </div>
+      <div class="note-box" style="margin-top:16px;">
+        六大定理在 ℝ 中<b>两两等价</b>：任取一个作为出发点，均可推出其余五个——
+        因此 6 × 5 共 {essay.proofs} 条推导构成一个闭环。阅读时建议先熟悉第 1 节给出的六条标准表述。
+      </div>
+    </section>
+
+    <!-- 02 相关内容 -->
+    <section class="sec">
+      <SecHead no="02" en="Related" zh="相关内容" />
+      <div class="grid-2">
+        {essay.related?.map((r) => (
+          <a class="cut-card vol-card" href={r.href}>
+            <span class="vc-series">站内关联</span>
+            <h3>{r.label}</h3>
+            <p class="vc-zh">实数系完备性是分析学的起点——与该条目的笔记和课程资料互补阅读。</p>
+          </a>
+        ))}
+        <div class="cut-card vol-card">
+          <span class="vc-series">后续计划</span>
+          <h3 style="color:var(--muted);">网页逐条排版版</h3>
+          <p class="vc-zh">计划把 30 条证明逐条转为网页正文（KaTeX 公式 + 证明折叠），完成后在此页直接阅读。</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

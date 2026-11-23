@@ -1,34 +1,50 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
+import SecHead from '../../components/SecHead.astro';
+import { ESSAYS, ESSAY_CATEGORIES } from '../../data/essays';
+
+const NO = ['01', '02', '03'];
 ---
 <Base title="随笔">
   <PageHero
     en="Essays"
     zh="随笔"
-    desc="每篇随笔围绕一个相对完整的问题；与长期笔记分别归档。目录默认按发表日期倒序，每页 12 篇（规划 §8.2）。"
+    desc="每篇随笔围绕一个相对完整的问题，与长期笔记分别归档。分三个板块：数学史与人物、概念科普、理论专题。"
     crumbs={[{ label: '首页', href: '/' }, { label: '随笔' }]}
   />
   <div class="wrap">
-    <section class="sec">
-      <div class="empty">
-        <span class="e-star">✦</span>
-        <h3>暂无随笔</h3>
-        <p>
-          首版展示诚实的空状态：只有确实提供正文的文章才列为已发表（规划 §8.2）。
-          想写什么都可以——一个反例、一次考试的复盘、某条定理的三种证明对比。
-        </p>
-        <div class="e-cards">
-          <span class="e-card">支持公式（KaTeX）</span>
-          <span class="e-card">支持图片 / 代码块 / 脚注</span>
-          <span class="e-card">可连载为文章系列</span>
-        </div>
-      </div>
-    </section>
-    <section class="sec" style="padding-top:8px;">
-      <div class="note-box">
-        <b>下一步：</b>选定 1 篇代表随笔（题名 + 正文，格式可讨论）后即可建第一篇文章页（规划 S03 / S07）。
-      </div>
-    </section>
+    {ESSAY_CATEGORIES.map((cat, i) => {
+      const items = ESSAYS.filter((e) => e.category === cat.id);
+      return (
+        <section class="sec">
+          <SecHead no={NO[i]} en={cat.en} zh={cat.name} />
+          <p style="margin:-14px 0 18px; color:var(--muted); font-size:13.5px;">{cat.desc}</p>
+          {items.length > 0 ? (
+            <div class="grid-2">
+              {items.map((e) => (
+                <a class="cut-card vol-card" href={`/essays/${e.id}/`}>
+                  <span class="vc-series">{e.date} · {e.tags?.[0]}</span>
+                  <h3>{e.title}</h3>
+                  <p class="vc-zh">{e.abstract.slice(0, 88)}……</p>
+                  <div class="cc-meta">
+                    {e.pages && <span class="tag">PDF · {e.pages} 页</span>}
+                    {e.proofs && <span class="tag">{e.proofs} 条证明</span>}
+                    {e.tags.slice(1, 3).map((t) => <span class="tag">{t}</span>)}
+                  </div>
+                  <div class="cc-foot"><span>随笔 · {cat.name}</span><span>阅读 →</span></div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div class="empty">
+              <span class="e-star">✦</span>
+              <h3>筹备中</h3>
+              <p>{cat.desc}——首篇选题确定后在此发布。</p>
+            </div>
+          )}
+        </section>
+      );
+    })}
   </div>
 </Base>
