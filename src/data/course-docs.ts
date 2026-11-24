@@ -44,9 +44,9 @@ export const COURSE_DOCS: Record<string, CourseDoc> = {
     cover: { year: '2025–2026', term: 'Semester 2', version: '1', updated: '2026-07-15' },
     scope: '知识笔记 5 章 · TTL × 6 · 往年试题 × 3',
     parts: mth118Toc.parts,
+    // 站主 2026-11-24：课程资料（含往年试题）全部公开，各分区一视同仁，不另加说明
     notes: {
       knowledge: '按 MTH118 讲义的顺序与记号整理，讲义中省略的步骤在此写全，并标注了对讲义的更正与考试重点。',
-      'past-papers': '试题转录自原卷图片；解答与评分要点为整理者撰写，非官方答案与评分标准。',
     },
     related: [{ kicker: '相关个人笔记', title: '数学分析 · Mathematical Analysis', desc: '个人笔记中对应的学科页', href: '/notes/analysis/' }],
   },
