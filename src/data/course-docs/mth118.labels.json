@@ -1,0 +1,63 @@
+{
+  "parts": {
+    "Knowledge Notes": { "key": "knowledge", "zh": "知识笔记" },
+    "TTL Materials": { "key": "ttl", "zh": "TTL 材料" },
+    "Past Papers": { "key": "past-papers", "zh": "往年试题" }
+  },
+  "titles": {
+    "Continuity Revision": "连续性复习",
+    "Functional Limits": "函数极限",
+    "The Definition of Continuity": "连续性的定义",
+    "Extreme and Intermediate Value Theorems": "极值定理与介值定理",
+    "Uniform Continuity": "一致连续",
+    "Sets of Discontinuity and Monotone Functions": "间断点集与单调函数",
+
+    "Differentiation": "微分",
+    "The Definition of the Derivative": "导数的定义",
+    "Algebra, Composition and Inverses of Differentiable Functions": "可微函数的运算、复合与反函数",
+    "The Interior Extremum Theorem": "内部极值定理",
+    "Darboux's Theorem": "Darboux 定理",
+    "The Mean Value Theorems": "微分中值定理",
+    "L'Hospital's Rules": "L'Hospital 法则",
+    "Taylor's Theorem with Lagrange's Remainder": "带 Lagrange 余项的 Taylor 定理",
+
+    "The Riemann Integral": "Riemann 积分",
+    "The Definition of the Riemann Integral": "Riemann 积分的定义",
+    "Integrability and Continuity": "可积性与连续性",
+    "Composition and Other Properties of Integrable Functions": "可积函数的复合与其他性质",
+    "The Fundamental Theorem of Calculus": "微积分基本定理",
+    "Definition of Improper Integrals": "反常积分的定义",
+    "Deciding Convergence of Improper Integrals": "反常积分敛散性的判定",
+    "Chapter Summary": "本章小结",
+
+    "Sequences and Series of Functions": "函数列与函数项级数",
+    "Pointwise Convergence": "逐点收敛",
+    "Uniform Convergence": "一致收敛",
+    "Properties of Uniformly Convergent Sequences": "一致收敛序列的性质",
+    "Properties of Series of Functions": "函数项级数的性质",
+    "Curious Example: Weierstrass Continuous Nowhere Differentiable Function": "趣例：Weierstrass 处处连续、处处不可微的函数",
+
+    "Revision Guide and Final Examination Outlook": "复习指南与期末考试展望",
+    "The Course as One Logical Route": "课程的一条逻辑主线",
+    "Definitions That Must Be Reproduced Exactly": "必须精确复述的定义",
+    "Theorem Checklist": "定理清单",
+    "Standard Examination Methods": "标准考试方法",
+    "Counterexamples Worth Memorising": "值得记住的反例",
+    "Final Examination Outlook": "期末考试展望",
+    "Final Self-Check": "最终自检",
+
+    "TTL 01: Revision of Continuity": "连续性复习",
+    "TTL 02: Definition and Standard Properties of Derivatives": "导数的定义与标准性质",
+    "TTL 03: Differential Mean Values, L'Hospital Rule and Taylor's Theorem": "微分中值定理、L'Hospital 法则与 Taylor 定理",
+    "TTL 04: Definition and Algebra of Integrable Functions": "可积函数的定义与运算",
+    "TTL 05: FTC and Improper Integrals": "微积分基本定理与反常积分",
+    "TTL 06: Uniform Convergence of Sequences and Series of Functions": "函数列与函数项级数的一致收敛",
+    "Session information": "场次信息",
+    "Problems and solutions": "题目与解答",
+    "Extra exercises and solutions": "附加题与解答",
+    "TTL review": "TTL 小结",
+
+    "Paper metadata": "试卷信息",
+    "Paper review": "试卷回顾"
+  }
+}

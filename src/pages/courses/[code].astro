@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SecHead from '../../components/SecHead.astro';
+import Halo from '../../components/Halo.astro';
+import { COURSES, SCHOOL } from '../../data/courses';
+import { COURSE_DOCS, PART_LABELS, type CourseDoc } from '../../data/course-docs';
+
+// 课程详情页模板（代表样本 MTH118，2026-11-24 导入）：在 COURSE_DOCS 登记了资料文档的课程自动生成页面。
+// 页码口径：目录记的是 PDF 页脚的书内页码；链接用 PDF 物理页（书内页码 + offset）定位（规划 §4.3 / §12.1）。
+// 年份口径（站主 2026-11-24）：修读学期 = 站主实际上课的时间；笔记版本 = PDF 封面所载、最近一次修订对应的学年。
+export function getStaticPaths() {
+  return COURSES.filter((c) => c.code in COURSE_DOCS).map((c) => ({
+    params: { code: c.code.toLowerCase() },
+    props: { course: c, doc: COURSE_DOCS[c.code] },
+  }));
+}
+const { course, doc } = Astro.props as { course: (typeof COURSES)[number]; doc: CourseDoc };
+const crumbs = [
+  { label: '首页', href: '/' },
+  { label: '课程笔记', href: '/courses/' },
+  { label: course.code },
+];
+const termShort = { 'Semester 1': 'S1', 'Semester 2': 'S2' }[course.semester] ?? course.semester;
+const statusClass = { 整理中: 'st-wip', 阶段完成: 'st-done', 已归档: 'st-arch' }[course.status];
+const lastPrinted = doc.pages - doc.offset;   // 最后一页的书内页码
+// 各分区的书内页码范围：到下一分区起始页的前一页为止
+const ranges = doc.parts.map((p, i) => {
+  const end = (i + 1 < doc.parts.length ? doc.parts[i + 1].page : lastPrinted + 1) - 1;
+  return `${p.page}–${end}`;
+});
+const pageHref = (page: number) => `${doc.pdf}#page=${page + doc.offset}`;
+const no2 = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base title={`${course.code} · ${course.title}`}>
+  <PageHero
+    en="Course File"
+    zh={`${course.code} · ${course.title}`}
+    desc={`${course.stage} · ${course.subject} · 修读于 ${course.year} ${course.semester} —— ${doc.pages} 页合并笔记：${doc.parts.map((p) => p.zh).join(' · ')}。`}
+    crumbs={crumbs}
+  />
+  <div class="wrap">
+    <section class="sec">
+      <div class="dossier">
+        <div class="dos-strip"><span>Course Record · {course.code}</span><span>{course.year} {termShort}</span></div>
+        <div class="dos-photo">
+          <Halo />
+          <span class="plate">{course.code}</span>
+          <span class="art-cap" style="position:static;transform:none;">课程徽记占位</span>
+        </div>
+        <div class="dos-info">
+          <div class="dos-row"><span class="dos-k">课程代码</span><span class="dos-v">{course.code}</span></div>
+          <div class="dos-row"><span class="dos-k">课程名称</span><span class="dos-v">{course.title}{course.titleZh && `（${course.titleZh}）`}</span></div>
+          <div class="dos-row"><span class="dos-k">学段 / 主题</span><span class="dos-v">{course.stage} · {course.subject}</span></div>
+          <div class="dos-row"><span class="dos-k">修读学期</span><span class="dos-v">{course.year} · {course.semester} · {SCHOOL[course.stage]}</span></div>
+          <div class="dos-row"><span class="dos-k">笔记版本</span><span class="dos-v">{doc.cover.year} 学年版 · {doc.cover.term} · Version {doc.cover.version} · {doc.cover.updated} 更新</span></div>
+          <div class="dos-row"><span class="dos-k">课程简介</span><span class="dos-v">{course.blurb}</span></div>
+          <div class="dos-row"><span class="dos-k">资料范围</span><span class="dos-v">{doc.scope}（同一份 {doc.pages} 页 PDF）</span></div>
+          <div class="dos-row"><span class="dos-k">整理状态</span><span class="dos-v"><span class:list={['st', statusClass]}>{course.status}</span></span></div>
+        </div>
+      </div>
+      <p class="dos-note">修读学期是站主实际上课的时间；笔记版本取自 PDF 封面，对应笔记最近一次修订的学年。</p>
+      <p style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn" href={doc.pdf} target="_blank" rel="noopener">📖 在线阅读 PDF</a>
+        <a class="btn btn-ghost" href={doc.pdf} download>⬇ 下载 PDF（{doc.pages} 页 · {doc.size}）</a>
+      </p>
+      <nav class="jump" aria-label="页面分区">
+        {doc.parts.map((p) => <a class="tag" href={`#${p.key}`}>{p.zh}</a>)}
+        <a class="tag" href="#related">相关内容</a>
+      </nav>
+      <div class="note-box" style="margin-top:14px;">
+        目录里的页码是 PDF 页脚标注的<b>书内页码</b>；点击条目会在新标签页打开 PDF 并跳到对应页。
+      </div>
+    </section>
+
+    {doc.parts.map((p, i) => (
+      <section class="sec" id={p.key}>
+        <SecHead no={no2(i + 1)} en={PART_LABELS[p.key]?.en ?? p.title} zh={p.zh || p.title} />
+        <p class="toc-meta">Part {p.no} · 书内第 {ranges[i]} 页 · {p.chapters.length} {PART_LABELS[p.key]?.unit ?? '章'}</p>
+        {(PART_LABELS[p.key]?.desc || doc.notes?.[p.key]) && (
+          <p class="toc-intro">{PART_LABELS[p.key]?.desc}{doc.notes?.[p.key]}</p>
+        )}
+        <div class="toc">
+          {p.chapters.map((ch) => (
+            <div class="toc-ch">
+              <div class="toc-head">
+                <span class="toc-no">{ch.no}</span>
+                <a class="toc-title" href={pageHref(ch.page)} target="_blank" rel="noopener">{ch.title}</a>
+                {ch.zh && <span class="toc-zh">{ch.zh}</span>}
+                <a class="toc-pg" href={pageHref(ch.page)} target="_blank" rel="noopener">p. {ch.page} ↗</a>
+              </div>
+              {ch.sections.length > 0 && (
+                <div class="toc-secs">
+                  {ch.sections.map((s) => (
+                    <a class="toc-sec" href={pageHref(s.page)} target="_blank" rel="noopener">
+                      <span class="ts-no">{s.no}</span>{s.title}{s.zh && <span class="ts-zh">{s.zh}</span>}<span class="ts-pg">p. {s.page}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    ))}
+
+    <section class="sec" id="related">
+      <SecHead no={no2(doc.parts.length + 1)} en="Related" zh="相关内容" />
+      <div class="grid-2">
+        {doc.related?.map((r) => (
+          <a class="cut-card vol-card" href={r.href}>
+            <span class="vc-series">{r.kicker}</span>
+            <h3>{r.title}</h3>
+            <p class="vc-zh">{r.desc}</p>
+          </a>
+        ))}
+        <div class="cut-card vol-card">
+          <span class="vc-series">参考资料 / 视频</span>
+          <h3 style="color:var(--muted);">待整理</h3>
+          <p class="vc-zh">相关讨论班、录像与参考书将在此关联。</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>

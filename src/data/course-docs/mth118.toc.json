@@ -1,0 +1,113 @@
+{"offset":5,"parts":[
+    {"no":"I","title":"Knowledge Notes","key":"knowledge","zh":"知识笔记","page":1,"chapters":[
+        {"no":"1","title":"Continuity Revision","zh":"连续性复习","page":2,"sections":[
+            {"no":"1.1","title":"Functional Limits","zh":"函数极限","page":2},
+            {"no":"1.2","title":"The Definition of Continuity","zh":"连续性的定义","page":8},
+            {"no":"1.3","title":"Extreme and Intermediate Value Theorems","zh":"极值定理与介值定理","page":12},
+            {"no":"1.4","title":"Uniform Continuity","zh":"一致连续","page":14},
+            {"no":"1.5","title":"Sets of Discontinuity and Monotone Functions","zh":"间断点集与单调函数","page":23}
+          ]},
+        {"no":"2","title":"Differentiation","zh":"微分","page":26,"sections":[
+            {"no":"2.1","title":"The Definition of the Derivative","zh":"导数的定义","page":26},
+            {"no":"2.2","title":"Algebra, Composition and Inverses of Differentiable Functions","zh":"可微函数的运算、复合与反函数","page":32},
+            {"no":"2.3","title":"The Interior Extremum Theorem","zh":"内部极值定理","page":37},
+            {"no":"2.4","title":"Darboux's Theorem","zh":"Darboux 定理","page":39},
+            {"no":"2.5","title":"The Mean Value Theorems","zh":"微分中值定理","page":42},
+            {"no":"2.6","title":"L'Hospital's Rules","zh":"L'Hospital 法则","page":46},
+            {"no":"2.7","title":"Taylor's Theorem with Lagrange's Remainder","zh":"带 Lagrange 余项的 Taylor 定理","page":50}
+          ]},
+        {"no":"3","title":"The Riemann Integral","zh":"Riemann 积分","page":56,"sections":[
+            {"no":"3.1","title":"The Definition of the Riemann Integral","zh":"Riemann 积分的定义","page":56},
+            {"no":"3.2","title":"Integrability and Continuity","zh":"可积性与连续性","page":63},
+            {"no":"3.3","title":"Composition and Other Properties of Integrable Functions","zh":"可积函数的复合与其他性质","page":67},
+            {"no":"3.4","title":"The Fundamental Theorem of Calculus","zh":"微积分基本定理","page":73},
+            {"no":"3.5","title":"Definition of Improper Integrals","zh":"反常积分的定义","page":77},
+            {"no":"3.6","title":"Deciding Convergence of Improper Integrals","zh":"反常积分敛散性的判定","page":81},
+            {"no":"","title":"Chapter Summary","zh":"本章小结","page":88}
+          ]},
+        {"no":"4","title":"Sequences and Series of Functions","zh":"函数列与函数项级数","page":89,"sections":[
+            {"no":"4.1","title":"Pointwise Convergence","zh":"逐点收敛","page":89},
+            {"no":"4.2","title":"Uniform Convergence","zh":"一致收敛","page":93},
+            {"no":"4.3","title":"Properties of Uniformly Convergent Sequences","zh":"一致收敛序列的性质","page":99},
+            {"no":"4.4","title":"Properties of Series of Functions","zh":"函数项级数的性质","page":105},
+            {"no":"4.5","title":"Curious Example: Weierstrass Continuous Nowhere Differentiable Function","zh":"趣例：Weierstrass 处处连续、处处不可微的函数","page":109},
+            {"no":"","title":"Chapter Summary","zh":"本章小结","page":113}
+          ]},
+        {"no":"5","title":"Revision Guide and Final Examination Outlook","zh":"复习指南与期末考试展望","page":114,"sections":[
+            {"no":"5.1","title":"The Course as One Logical Route","zh":"课程的一条逻辑主线","page":114},
+            {"no":"5.2","title":"Definitions That Must Be Reproduced Exactly","zh":"必须精确复述的定义","page":115},
+            {"no":"5.3","title":"Theorem Checklist","zh":"定理清单","page":118},
+            {"no":"5.4","title":"Standard Examination Methods","zh":"标准考试方法","page":121},
+            {"no":"5.5","title":"Counterexamples Worth Memorising","zh":"值得记住的反例","page":124},
+            {"no":"5.6","title":"Final Examination Outlook","zh":"期末考试展望","page":125},
+            {"no":"5.7","title":"Final Self-Check","zh":"最终自检","page":128}
+          ]}
+      ]},
+    {"no":"II","title":"TTL Materials","key":"ttl","zh":"TTL 材料","page":131,"chapters":[
+        {"no":"6","title":"TTL 01: Revision of Continuity","zh":"连续性复习","page":132,"sections":[
+            {"no":"6.1","title":"Session information","zh":"场次信息","page":132},
+            {"no":"6.2","title":"Problems and solutions","zh":"题目与解答","page":132},
+            {"no":"6.3","title":"Extra exercises and solutions","zh":"附加题与解答","page":139},
+            {"no":"6.4","title":"TTL review","zh":"TTL 小结","page":142}
+          ]},
+        {"no":"7","title":"TTL 02: Definition and Standard Properties of Derivatives","zh":"导数的定义与标准性质","page":143,"sections":[
+            {"no":"7.1","title":"Session information","zh":"场次信息","page":143},
+            {"no":"7.2","title":"Problems and solutions","zh":"题目与解答","page":143},
+            {"no":"7.3","title":"TTL review","zh":"TTL 小结","page":153}
+          ]},
+        {"no":"8","title":"TTL 03: Differential Mean Values, L'Hospital Rule and Taylor's Theorem","zh":"微分中值定理、L'Hospital 法则与 Taylor 定理","page":154,"sections":[
+            {"no":"8.1","title":"Session information","zh":"场次信息","page":154},
+            {"no":"8.2","title":"Problems and solutions","zh":"题目与解答","page":154},
+            {"no":"8.3","title":"Extra exercises and solutions","zh":"附加题与解答","page":161},
+            {"no":"8.4","title":"TTL review","zh":"TTL 小结","page":167}
+          ]},
+        {"no":"9","title":"TTL 04: Definition and Algebra of Integrable Functions","zh":"可积函数的定义与运算","page":168,"sections":[
+            {"no":"9.1","title":"Session information","zh":"场次信息","page":168},
+            {"no":"9.2","title":"Problems and solutions","zh":"题目与解答","page":168},
+            {"no":"9.3","title":"TTL review","zh":"TTL 小结","page":178}
+          ]},
+        {"no":"10","title":"TTL 05: FTC and Improper Integrals","zh":"微积分基本定理与反常积分","page":179,"sections":[
+            {"no":"10.1","title":"Session information","zh":"场次信息","page":179},
+            {"no":"10.2","title":"Problems and solutions","zh":"题目与解答","page":179},
+            {"no":"10.3","title":"TTL review","zh":"TTL 小结","page":191}
+          ]},
+        {"no":"11","title":"TTL 06: Uniform Convergence of Sequences and Series of Functions","zh":"函数列与函数项级数的一致收敛","page":192,"sections":[
+            {"no":"11.1","title":"Session information","zh":"场次信息","page":192},
+            {"no":"11.2","title":"Problems and solutions","zh":"题目与解答","page":192},
+            {"no":"11.3","title":"TTL review","zh":"TTL 小结","page":205}
+          ]}
+      ]},
+    {"no":"III","title":"Past Papers","key":"past-papers","zh":"往年试题","page":206,"chapters":[
+        {"no":"12","title":"Past Paper: Final Examination 2022–2023","page":207,"sections":[
+            {"no":"12.1","title":"Paper metadata","zh":"试卷信息","page":207},
+            {"no":"12.2","title":"Question 1","page":207},
+            {"no":"12.3","title":"Question 2","page":209},
+            {"no":"12.4","title":"Question 3","page":211},
+            {"no":"12.5","title":"Question 4","page":213},
+            {"no":"12.6","title":"Question 5","page":214},
+            {"no":"12.7","title":"Question 6","page":216},
+            {"no":"12.8","title":"Paper review","zh":"试卷回顾","page":217}
+          ]},
+        {"no":"13","title":"Past Paper: Final Examination 2023–2024","page":219,"sections":[
+            {"no":"13.1","title":"Paper metadata","zh":"试卷信息","page":219},
+            {"no":"13.2","title":"Question 1","page":219},
+            {"no":"13.3","title":"Question 2","page":221},
+            {"no":"13.4","title":"Question 3","page":223},
+            {"no":"13.5","title":"Question 4","page":225},
+            {"no":"13.6","title":"Question 5","page":227},
+            {"no":"13.7","title":"Question 6","page":228},
+            {"no":"13.8","title":"Paper review","zh":"试卷回顾","page":230}
+          ]},
+        {"no":"14","title":"Past Paper: Final Examination 2024–2025","page":232,"sections":[
+            {"no":"14.1","title":"Paper metadata","zh":"试卷信息","page":232},
+            {"no":"14.2","title":"Question 1","page":232},
+            {"no":"14.3","title":"Question 2","page":234},
+            {"no":"14.4","title":"Question 3","page":236},
+            {"no":"14.5","title":"Question 4","page":238},
+            {"no":"14.6","title":"Question 5","page":241},
+            {"no":"14.7","title":"Paper review","zh":"试卷回顾","page":242}
+          ]}
+      ]}
+  ],"front":[
+    {"title":"Document Information","pdfPage":2}
+  ]}

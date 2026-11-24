@@ -2,6 +2,7 @@
 // 学年映射：Y1S1 = 2022–2023 秋季学期起；Y4S2 = 2025–2026 春季学期
 // 研究生阶段（慕尼黑工大）待首个完整学期结束后补充
 // 注：MTH323 / MTH315 / MTH310 英文题名为站主提供原名，其余英文题名为中文对应译名，以官方成绩单为准
+// 已随站发布资料文档（PDF + 目录）的课程另见 course-docs.ts 的 COURSE_DOCS，详情页由其自动生成
 export interface Course {
   code: string;
   title: string;
@@ -12,9 +13,11 @@ export interface Course {
   subject: string;
   status: '整理中' | '阶段完成' | '已归档';
   blurb: string;
-  sample?: boolean; // 真实样本（已提供文件）标记
   href?: string;    // 已建详情页的课程
 }
+
+// 学段对应的学校（详情页"修读学期"一行用）
+export const SCHOOL: Record<Course['stage'], string> = { 本科: '西交利物浦大学', 研究生: '慕尼黑工业大学' };
 
 export const COURSES: Course[] = [
   // —— Y1S1 · 2022–2023 秋季学期 ——
@@ -25,7 +28,7 @@ export const COURSES: Course[] = [
   // —— Y2S1 · 2023–2024 秋季学期 ——
   { code: 'MTH117', title: 'Analysis I', titleZh: '分析一', stage: '本科', year: '2023–2024', semester: 'Semester 1', subject: '分析', status: '整理中', blurb: '序列与级数、ε–δ 语言与实数完备性。' },
   // —— Y2S2 · 2023–2024 春季学期 ——
-  { code: 'MTH118', title: 'Analysis II', titleZh: '分析二', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '分析', status: '整理中', blurb: '多元分析、一致收敛与 Riemann 积分。已有 248 页合并 PDF 样本（知识笔记 · TTL · 往年试题）。', sample: true, href: '/courses/mth118/' },
+  { code: 'MTH118', title: 'Analysis II', titleZh: '分析二', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '分析', status: '阶段完成', blurb: '连续性与一致连续、微分中值定理、Riemann 积分与反常积分、函数列与函数项级数。', href: '/courses/mth118/' },
   { code: 'MTH106', title: 'Introduction to Differential Equations', titleZh: '微分方程入门', stage: '本科', year: '2023–2024', semester: 'Semester 2', subject: '方程与建模', status: '整理中', blurb: '一阶方程、二阶线性方程与基础解法。' },
   // —— Y3S1 · 2024–2025 秋季学期 ——
   { code: 'MTH212', title: 'Differential Equations and Control', titleZh: '微分方程与控制', stage: '本科', year: '2024–2025', semester: 'Semester 1', subject: '方程与建模', status: '整理中', blurb: '线性系统、稳定性分析与控制入门。' },

@@ -1,6 +1,8 @@
 ---
 import type { Course } from '../data/courses';
+import { COURSE_DOCS } from '../data/course-docs';
 const { course }: { course: Course } = Astro.props;
+const doc = COURSE_DOCS[course.code];   // 已随站发布的资料文档（PDF + 目录）
 const stClass = course.status === '整理中' ? 'st-wip' : course.status === '阶段完成' ? 'st-done' : 'st-arch';
 ---
 <div class:list={['cut-card', 'course-card', 'hov']}>
@@ -10,7 +12,7 @@ const stClass = course.status === '整理中' ? 'st-wip' : course.status === '�
   <div class="cc-top">
     <span class="cc-code">{course.code}</span>
     <span class="tag">{course.subject}</span>
-    {course.sample && <span class="st st-new">样本</span>}
+    {doc && <span class="st st-new">PDF · {doc.pages} 页</span>}
   </div>
   <h3 class="cc-title">{course.title}</h3>
   {course.titleZh && <p class="cc-zh">{course.titleZh}</p>}
@@ -20,8 +22,8 @@ const stClass = course.status === '整理中' ? 'st-wip' : course.status === '�
   </div>
   <p class="cc-zh">{course.blurb}</p>
   <div class="cc-foot">
-    <span class={course.sample ? 'cc-sample' : 'cc-ph'}>
-      {course.sample ? '✓ 真实样本' : course.href ? '✓ 已建详情页' : '资料整理中'}
+    <span class={doc ? 'cc-sample' : 'cc-ph'}>
+      {doc ? '✓ 在线阅读 / 下载' : course.href ? '✓ 已建详情页' : '资料整理中'}
     </span>
     <span class={`st ${stClass}`}>{course.status}</span>
   </div>
