@@ -5,9 +5,11 @@ import CourseCard from '../components/CourseCard.astro';
 import { SITE, UPDATES } from '../data/site';
 import { COURSES } from '../data/courses';
 import { ESSAYS } from '../data/essays';
+import { DISCIPLINES } from '../data/notes';
 
 const mth118 = COURSES.find((c) => c.code === 'MTH118')!;
 const essay = ESSAYS.find((e) => e.id === 'real-completeness')!;
+const pde = DISCIPLINES.find((d) => d.id === 'pde')!.notebook!;   // 首页代表卡：页数 / 状态跟随学科页数据
 
 const sections = [
   { href: '/about/', no: '01', zh: '关于', en: 'About', desc: '站主是谁、在读什么方向、从哪里开始读。' },
@@ -96,16 +98,16 @@ const sections = [
           </div>
         </a>
         <a class="cut-card vol-card" href="/notes/pde/">
-          <span class="vc-series">THE UNFINISHED WAY</span>
-          <h3>Basic Partial Differential Equations</h3>
-          <p class="vc-zh">偏微分方程基础 · 302 页 · 分析准备 → Sobolev 空间</p>
+          <span class="vc-series">{pde.series.toUpperCase()}</span>
+          <h3>{pde.title}</h3>
+          <p class="vc-zh">{pde.titleZh} · {pde.pages} 页 · 分析准备 → Sobolev 空间</p>
           <div class="cc-meta">
             <span class="tag th-gehenna">基础偏微分方程</span>
-            <span class="tag">英文</span>
-            <span class="st st-wip">整理中</span>
+            <span class="tag">{pde.lang}</span>
+            <span class:list={['st', pde.status === '已发布' ? 'st-done' : 'st-wip']}>{pde.status}</span>
           </div>
           <div class="cc-foot">
-            <span>✓ 真实样本 · Gehenna 主题</span>
+            <span>✓ 在线阅读 / 下载 · 目录可跳转</span>
             <span>笔记档案 →</span>
           </div>
         </a>

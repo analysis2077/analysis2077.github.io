@@ -1,0 +1,72 @@
+{
+  "parts": {
+    "Partial Differential Equations 1": { "no": "I" }
+  },
+  "titles": {
+    "Preface": "序言",
+    "Introduction and Analytical Preliminaries": "引论与分析准备",
+    "What Is a Partial Differential Equation?": "什么是偏微分方程",
+    "Classical Solutions and the First Glimpse of Weak Solutions": "经典解与弱解初探",
+    "Multivariable Differential Tools": "多元微分学工具",
+    "Integral Identities for PDE": "PDE 中的积分恒等式",
+    "ODE Results Used in Characteristics": "特征线法用到的常微分方程结论",
+    "Fourier Transform, Convolution, and Mollifiers": "Fourier 变换、卷积与磨光子",
+
+    "First-Order Partial Differential Equations: Method of Characteristics": "一阶偏微分方程：特征线法",
+    "Introduction": "引言",
+    "Linear Equations": "线性方程",
+    "Quasilinear Equations": "拟线性方程",
+    "General First-Order Equation in Two Variables": "两个自变量的一般一阶方程",
+    "First-Order Equation in Several Variables": "多个自变量的一阶方程",
+    "Hamilton–Jacobi Equation": "Hamilton–Jacobi 方程",
+
+    "Hamilton–Jacobi Equations and Conservation Laws": "Hamilton–Jacobi 方程与守恒律",
+    "Hamilton–Jacobi Equations and the Hopf–Lax Formula": "Hamilton–Jacobi 方程与 Hopf–Lax 公式",
+    "Convex Duality and Generalized Hamilton–Jacobi Solutions": "凸对偶与广义 Hamilton–Jacobi 解",
+    "Scalar Conservation Laws, Weak Solutions, and Shocks": "标量守恒律、弱解与激波",
+    "Entropy Solutions, Shocks, and Rarefaction Waves": "熵解、激波与稀疏波",
+
+    "Classification of Second-Order Partial Differential Equations": "二阶偏微分方程的分类",
+    "Cauchy Problems for Second-Order Equations": "二阶方程的 Cauchy 问题",
+    "Principal Part and the Geometry of Characteristics": "主部与特征的几何",
+    "Classification in Two Variables": "两个自变量的分类",
+    "Elliptic, Parabolic, and Hyperbolic Equations in Several Variables": "多个自变量的椭圆、抛物型与双曲型方程",
+    "Higher-Order Linear Equations": "高阶线性方程",
+    "Forward View: Principal Symbols": "前瞻：主象征",
+
+    "Laplace and Poisson Equations": "Laplace 方程与 Poisson 方程",
+    "Fundamental Solutions and Harmonic Functions": "基本解与调和函数",
+    "The Dirichlet Problem and Perron's Method": "Dirichlet 问题与 Perron 方法",
+    "The Poisson Equation and Newtonian Potential": "Poisson 方程与 Newton 位势",
+    "Hilbert Space Method: A First Glimpse": "Hilbert 空间方法初探",
+
+    "The Heat Equation": "热方程",
+    "Derivation and Basic Structure": "推导与基本结构",
+    "The Heat Equation in the Whole Space": "全空间上的热方程",
+    "Maximum and Minimum Principles": "最大值与最小值原理",
+    "The Heat Equation on a Finite Interval: Fourier Method": "有限区间上的热方程：Fourier 方法",
+    "Fourier Transform and Further Perspectives": "Fourier 变换与进一步展望",
+
+    "The Wave Equation": "波动方程",
+    "The One-Dimensional Cauchy Problem": "一维 Cauchy 问题",
+    "Initial–Boundary Value Problems in One Dimension": "一维初边值问题",
+    "Energy, Uniqueness, and Finite Propagation": "能量、唯一性与有限传播",
+    "The Three-Dimensional Wave Equation": "三维波动方程",
+    "Two Dimensions, General Dimensions, and Huygens' Principle": "二维、一般维数与 Huygens 原理",
+    "Wave Equations on Bounded Domains": "有界区域上的波动方程",
+
+    "Cauchy–Kovalevsky Theorem": "Cauchy–Kovalevsky 定理",
+    "A Generalization: Application to First-Order Systems": "一个推广：一阶方程组",
+    "Holmgren's Uniqueness Theorem": "Holmgren 唯一性定理",
+    "Notes": "注记",
+
+    "Weak Derivatives, Sobolev Spaces, and Weak Formulations": "弱导数、Sobolev 空间与弱形式",
+    "Why Classical Derivatives Are Too Restrictive": "经典导数为何过于受限",
+    "Test Functions, Distributions, and Weak Derivatives": "检验函数、分布与弱导数",
+    "Basic Calculus of Weak Derivatives": "弱导数的基本运算",
+    "Sobolev Spaces": "Sobolev 空间",
+    "Weak Formulations of Model PDE": "模型 PDE 的弱形式",
+    "Existence of an L2 Weak Solution": "L² 弱解的存在性",
+    "From Weak Solutions to Modern PDE": "从弱解到现代 PDE"
+  }
+}

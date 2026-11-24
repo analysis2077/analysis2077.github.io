@@ -1,0 +1,74 @@
+{"offset":6,"parts":[
+    {"no":"I","title":"Partial Differential Equations 1","key":"","zh":"","page":1,"chapters":[
+        {"no":"1","title":"Introduction and Analytical Preliminaries","zh":"引论与分析准备","page":2,"sections":[
+            {"no":"1.1","title":"What Is a Partial Differential Equation?","zh":"什么是偏微分方程","page":3},
+            {"no":"1.2","title":"Classical Solutions and the First Glimpse of Weak Solutions","zh":"经典解与弱解初探","page":9},
+            {"no":"1.3","title":"Multivariable Differential Tools","zh":"多元微分学工具","page":12},
+            {"no":"1.4","title":"Integral Identities for PDE","zh":"PDE 中的积分恒等式","page":15},
+            {"no":"1.5","title":"ODE Results Used in Characteristics","zh":"特征线法用到的常微分方程结论","page":20},
+            {"no":"1.6","title":"Fourier Transform, Convolution, and Mollifiers","zh":"Fourier 变换、卷积与磨光子","page":22}
+          ]},
+        {"no":"2","title":"First-Order Partial Differential Equations: Method of Characteristics","zh":"一阶偏微分方程：特征线法","page":31,"sections":[
+            {"no":"2.1","title":"Introduction","zh":"引言","page":32},
+            {"no":"2.2","title":"Linear Equations","zh":"线性方程","page":34},
+            {"no":"2.3","title":"Quasilinear Equations","zh":"拟线性方程","page":40},
+            {"no":"2.4","title":"General First-Order Equation in Two Variables","zh":"两个自变量的一般一阶方程","page":51},
+            {"no":"2.5","title":"First-Order Equation in Several Variables","zh":"多个自变量的一阶方程","page":61},
+            {"no":"2.6","title":"Hamilton–Jacobi Equation","zh":"Hamilton–Jacobi 方程","page":64}
+          ]},
+        {"no":"3","title":"Hamilton–Jacobi Equations and Conservation Laws","zh":"Hamilton–Jacobi 方程与守恒律","page":67,"sections":[
+            {"no":"3.1","title":"Hamilton–Jacobi Equations and the Hopf–Lax Formula","zh":"Hamilton–Jacobi 方程与 Hopf–Lax 公式","page":68},
+            {"no":"3.2","title":"Convex Duality and Generalized Hamilton–Jacobi Solutions","zh":"凸对偶与广义 Hamilton–Jacobi 解","page":74},
+            {"no":"3.3","title":"Scalar Conservation Laws, Weak Solutions, and Shocks","zh":"标量守恒律、弱解与激波","page":83},
+            {"no":"3.4","title":"Entropy Solutions, Shocks, and Rarefaction Waves","zh":"熵解、激波与稀疏波","page":88}
+          ]},
+        {"no":"4","title":"Classification of Second-Order Partial Differential Equations","zh":"二阶偏微分方程的分类","page":99,"sections":[
+            {"no":"4.1","title":"Cauchy Problems for Second-Order Equations","zh":"二阶方程的 Cauchy 问题","page":100},
+            {"no":"4.2","title":"Principal Part and the Geometry of Characteristics","zh":"主部与特征的几何","page":105},
+            {"no":"4.3","title":"Classification in Two Variables","zh":"两个自变量的分类","page":109},
+            {"no":"4.4","title":"Elliptic, Parabolic, and Hyperbolic Equations in Several Variables","zh":"多个自变量的椭圆、抛物型与双曲型方程","page":114},
+            {"no":"4.5","title":"Higher-Order Linear Equations","zh":"高阶线性方程","page":117},
+            {"no":"4.6","title":"Forward View: Principal Symbols","zh":"前瞻：主象征","page":119}
+          ]},
+        {"no":"5","title":"Laplace and Poisson Equations","zh":"Laplace 方程与 Poisson 方程","page":122,"sections":[
+            {"no":"5.1","title":"Laplace and Poisson Equations","zh":"Laplace 方程与 Poisson 方程","page":123},
+            {"no":"5.2","title":"Fundamental Solutions and Harmonic Functions","zh":"基本解与调和函数","page":125},
+            {"no":"5.3","title":"The Dirichlet Problem and Perron's Method","zh":"Dirichlet 问题与 Perron 方法","page":143},
+            {"no":"5.4","title":"The Poisson Equation and Newtonian Potential","zh":"Poisson 方程与 Newton 位势","page":149},
+            {"no":"5.5","title":"Hilbert Space Method: A First Glimpse","zh":"Hilbert 空间方法初探","page":157}
+          ]},
+        {"no":"6","title":"The Heat Equation","zh":"热方程","page":160,"sections":[
+            {"no":"6.1","title":"Derivation and Basic Structure","zh":"推导与基本结构","page":161},
+            {"no":"6.2","title":"The Heat Equation in the Whole Space","zh":"全空间上的热方程","page":163},
+            {"no":"6.3","title":"Maximum and Minimum Principles","zh":"最大值与最小值原理","page":175},
+            {"no":"6.4","title":"The Heat Equation on a Finite Interval: Fourier Method","zh":"有限区间上的热方程：Fourier 方法","page":184},
+            {"no":"6.5","title":"Fourier Transform and Further Perspectives","zh":"Fourier 变换与进一步展望","page":191}
+          ]},
+        {"no":"7","title":"The Wave Equation","zh":"波动方程","page":194,"sections":[
+            {"no":"7.1","title":"The One-Dimensional Cauchy Problem","zh":"一维 Cauchy 问题","page":195},
+            {"no":"7.2","title":"Initial–Boundary Value Problems in One Dimension","zh":"一维初边值问题","page":200},
+            {"no":"7.3","title":"Energy, Uniqueness, and Finite Propagation","zh":"能量、唯一性与有限传播","page":205},
+            {"no":"7.4","title":"The Three-Dimensional Wave Equation","zh":"三维波动方程","page":210},
+            {"no":"7.5","title":"Two Dimensions, General Dimensions, and Huygens' Principle","zh":"二维、一般维数与 Huygens 原理","page":217},
+            {"no":"7.6","title":"Wave Equations on Bounded Domains","zh":"有界区域上的波动方程","page":225}
+          ]},
+        {"no":"8","title":"Cauchy–Kovalevsky Theorem","zh":"Cauchy–Kovalevsky 定理","page":231,"sections":[
+            {"no":"8.1","title":"Introduction","zh":"引言","page":232},
+            {"no":"8.2","title":"Cauchy–Kovalevsky Theorem","zh":"Cauchy–Kovalevsky 定理","page":233},
+            {"no":"8.3","title":"A Generalization: Application to First-Order Systems","zh":"一个推广：一阶方程组","page":246},
+            {"no":"8.4","title":"Holmgren's Uniqueness Theorem","zh":"Holmgren 唯一性定理","page":253},
+            {"no":"8.5","title":"Notes","zh":"注记","page":256}
+          ]},
+        {"no":"9","title":"Weak Derivatives, Sobolev Spaces, and Weak Formulations","zh":"弱导数、Sobolev 空间与弱形式","page":257,"sections":[
+            {"no":"9.1","title":"Why Classical Derivatives Are Too Restrictive","zh":"经典导数为何过于受限","page":258},
+            {"no":"9.2","title":"Test Functions, Distributions, and Weak Derivatives","zh":"检验函数、分布与弱导数","page":259},
+            {"no":"9.3","title":"Basic Calculus of Weak Derivatives","zh":"弱导数的基本运算","page":266},
+            {"no":"9.4","title":"Sobolev Spaces","zh":"Sobolev 空间","page":267},
+            {"no":"9.5","title":"Weak Formulations of Model PDE","zh":"模型 PDE 的弱形式","page":274},
+            {"no":"9.6","title":"Existence of an L2 Weak Solution","zh":"L² 弱解的存在性","page":278},
+            {"no":"9.7","title":"From Weak Solutions to Modern PDE","zh":"从弱解到现代 PDE","page":287}
+          ]}
+      ]}
+  ],"front":[
+    {"title":"Preface","zh":"序言","pdfPage":3}
+  ]}

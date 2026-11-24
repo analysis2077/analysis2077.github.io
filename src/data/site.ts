@@ -17,7 +17,8 @@ export const SITE = {
 };
 
 export const UPDATES = [
-  { date: '2026-11-24', title: '首个课程资料上线：MTH118 Analysis II（248 页合并 PDF · 知识笔记 · TTL × 6 · 往年试题 × 3）', isNew: true },
+  { date: '2026-11-24', title: '首本个人笔记上线：Basic Partial Differential Equations（294 页 PDF · Part I · 9 章 50 节 · 目录可跳转）', isNew: true },
+  { date: '2026-11-24', title: '首个课程资料上线：MTH118 Analysis II（248 页合并 PDF · 知识笔记 · TTL × 6 · 往年试题 × 3）', isNew: false },
   { date: '2026-11-24', title: '讨论班栏目第一个条目上线：Convex Analysis, Duality, and Variational Methods（RA 项目 · 3 份周讲义）', isNew: false },
   { date: '2026-11-23', title: '随笔板块上线：首篇理论专题《实数系完备性六大定理互证》（PDF · 30 条证明）', isNew: false },
   { date: '2026-11-23', title: '讲课与讨论班改为条目式归档：介绍 · 材料 · 讲课视频链接', isNew: false },

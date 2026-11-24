@@ -9,6 +9,8 @@ import { DISCIPLINES, THEME_META, type Discipline } from '../../data/notes';
 // 学科页模板：一门学科对应一本笔记，没有分册层（站主 2026-11-24 修订）——
 // 学科有 notebook 时本页即这本笔记的档案（档案卡 + 章节目录 + 文件），否则渲染整理中的空状态。
 // 新增学科 / 导入笔记只需在 notes.ts 加数据，本模板自动生成页面。
+// 页码口径（与课程页一致）：目录记的是 PDF 页脚的书内页码；链接用 PDF 物理页（书内页码 + offset）定位（规划 §6.3 / §12.1）。
+// 档案卡左侧（站主 2026-11-24）：放笔记的封面图（nb.coverImage，Basic PDE 用 PDF 第 7 页），点击打开 PDF。
 export function getStaticPaths() {
   return DISCIPLINES.map((d: Discipline) => ({ params: { id: d.id }, props: { d } }));
 }
@@ -26,7 +28,20 @@ const heroDesc = nb
 const emptyDesc = '这门学科对应的笔记正在整理。完成后本页将直接呈现笔记档案与章节目录'
   + (d.related?.length ? '；相关课程的资料见课程笔记栏目。' : '。');
 const formulas = nb?.preview.map((f) => ({ label: f.label, html: katex.renderToString(f.tex) })) ?? [];
+const statusClass = { 整理中: 'st-wip', 已发布: 'st-done' };
+// 目录链接：书内页码 → PDF 物理页；没有 PDF 时返回 undefined，<a> 不带 href 就不可点击
+const pageHref = (page: number) => (nb?.pdf ? `${nb.pdf}#page=${page + nb.offset}` : undefined);
+const pdfHref = (pdfPage: number) => (nb?.pdf ? `${nb.pdf}#page=${pdfPage}` : undefined);
+const newTab = nb?.pdf ? '_blank' : undefined;
+const lastPrinted = nb ? nb.pages - nb.offset : 0;   // 最后一页的书内页码
+// 各 Part 的书内页码范围：到下一 Part 起始页的前一页为止
+const rangeOf = (page: number, i: number) => {
+  const end = (i + 1 < nb!.parts.length ? nb!.parts[i + 1].page : lastPrinted + 1) - 1;
+  return `${page}–${end}`;
+};
+const coverHref = nb?.pdf && nb.coverPage ? `${nb.pdf}#page=${nb.coverPage}` : nb?.pdf;
 ---
+
 <Base title={`${d.name} · 个人笔记`}>
   <PageHero theme={d.theme} en={`Discipline · ${d.short}`} zh={d.name} desc={heroDesc} crumbs={crumbs} />
   <div class="wrap">
@@ -36,9 +51,22 @@ const formulas = nb?.preview.map((f) => ({ label: f.label, html: katex.renderToS
           <div class:list={['dossier', `th-${d.theme}`]}>
             <div class="dos-strip"><span>Notebook Record</span><span>{nb.series}</span></div>
             <div class="dos-photo">
-              <Halo />
-              <span class="plate">{meta.plate}</span>
-              <span class="art-cap" style="position:static;transform:none;">封面占位 · 等待素材</span>
+              {nb.coverImage ? (
+                <a href={coverHref} target="_blank" rel="noopener" title="打开 PDF">
+                  <img
+                    class="dos-cover" src={nb.coverImage}
+                    alt={`${nb.title} 笔记封面（PDF 第 ${nb.coverPage} 页）`}
+                    width={nb.coverSize?.[0]} height={nb.coverSize?.[1]}
+                  />
+                </a>
+              ) : (
+                <>
+                  <Halo />
+                  <span class="plate">{meta.plate}</span>
+                  <span class="art-cap" style="position:static;transform:none;">封面占位 · 等待素材</span>
+                </>
+              )}
+              {nb.coverImage && <span class="dos-cap">封面 · PDF 第 {nb.coverPage} 页 · 点击打开</span>}
             </div>
             <div class="dos-info">
               <div class="dos-row"><span class="dos-k">原题名</span><span class="dos-v">{nb.title}</span></div>
@@ -47,15 +75,16 @@ const formulas = nb?.preview.map((f) => ({ label: f.label, html: katex.renderToS
               <div class="dos-row"><span class="dos-k">语言</span><span class="dos-v">{nb.lang}</span></div>
               <div class="dos-row"><span class="dos-k">先修知识</span><span class="dos-v">{nb.prereq}</span></div>
               <div class="dos-row"><span class="dos-k">适读对象</span><span class="dos-v">{nb.audience}</span></div>
-              <div class="dos-row"><span class="dos-k">版本 / 范围</span><span class="dos-v">{nb.version} · 共 {nb.pages} 页</span></div>
-              <div class="dos-row"><span class="dos-k">整理状态</span><span class="dos-v"><span class:list={['st', nb.status === '已发布' ? 'st-done' : 'st-wip']}>{nb.status}</span></span></div>
+              <div class="dos-row"><span class="dos-k">版本 / 范围</span><span class="dos-v">{nb.version}{nb.scope && ` · ${nb.scope}`} · 共 {nb.pages} 页</span></div>
+              <div class="dos-row"><span class="dos-k">整理状态</span><span class="dos-v"><span class:list={['st', statusClass[nb.status]]}>{nb.status}</span></span></div>
             </div>
           </div>
-          <p style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap;">
+          <p class="dos-note">笔记版本取自 PDF 封面所载的修订日期；PDF 共 {nb.pages} 页，前 {nb.offset} 页是封面与前置页，其余页面按书内页码编排。</p>
+          <p style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
             {nb.pdf ? (
               <>
                 <a class="btn" href={nb.pdf} target="_blank" rel="noopener">📖 在线阅读 PDF</a>
-                <a class="btn btn-ghost" href={nb.pdf} download>⬇ 下载 PDF（{nb.pages} 页）</a>
+                <a class="btn btn-ghost" href={nb.pdf} download>⬇ 下载 PDF（{nb.pages} 页{nb.size && ` · ${nb.size}`}）</a>
               </>
             ) : (
               <>
@@ -68,17 +97,48 @@ const formulas = nb?.preview.map((f) => ({ label: f.label, html: katex.renderToS
 
         <section class="sec" style="padding-top:10px;">
           <SecHead no="01" en="Contents" zh="核心目录" />
-          <div class="chap-list">
-            {nb.chapters.map((c) => (
-              <div class="chap-item">
-                <span>{c.name}</span>
-                <span class="ci-page">PDF 第 X 页 · {c.page}</span>
+          <div class="toc">
+            {nb.front?.map((f) => (
+              <div class="toc-ch">
+                <div class="toc-head">
+                  <span class="toc-no"></span>
+                  <a class="toc-title" href={pdfHref(f.pdfPage)} target={newTab} rel="noopener">{f.title}</a>
+                  {f.zh && <span class="toc-zh">{f.zh}</span>}
+                  <a class="toc-pg" href={pdfHref(f.pdfPage)} target={newTab} rel="noopener">PDF 第 {f.pdfPage} 页 ↗</a>
+                </div>
+              </div>
+            ))}
+            {nb.parts.map((p, i) => (
+              <div class="toc-part">
+                <p class="toc-meta">
+                  {p.no && `Part ${p.no} · `}{p.title}{p.zh && ` · ${p.zh}`}
+                  {' · 书内第 '}{rangeOf(p.page, i)} 页 · {p.chapters.length} 章{p.chapters.reduce((a, c) => a + c.sections.length, 0)} 节
+                </p>
+                {p.chapters.map((ch) => (
+                  <div class="toc-ch">
+                    <div class="toc-head">
+                      <span class="toc-no">{ch.no}</span>
+                      <a class="toc-title" href={pageHref(ch.page)} target={newTab} rel="noopener">{ch.title}</a>
+                      {ch.zh && <span class="toc-zh">{ch.zh}</span>}
+                      <a class="toc-pg" href={pageHref(ch.page)} target={newTab} rel="noopener">p. {ch.page} ↗</a>
+                    </div>
+                    {ch.sections.length > 0 && (
+                      <div class="toc-secs">
+                        {ch.sections.map((s) => (
+                          <a class="toc-sec" href={pageHref(s.page)} target={newTab} rel="noopener">
+                            <span class="ts-no">{s.no}</span>{s.title}{s.zh && <span class="ts-zh">{s.zh}</span>}<span class="ts-pg">p. {s.page}</span>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
           <div class="note-box" style="margin-top:16px;">
-            章节目录将先从 PDF 书签 / 目录提取，再由站主核对；<b>英文原题名保留</b>，可加中文说明（规划 §6.3）。
-            仅对已提供网页正文的章节生成网页阅读页，其余章节定位到 PDF 文件页并显示可手动查找的页码。
+            目录里的页码是 PDF 页脚标注的<b>书内页码</b>；点击条目会在新标签页打开 PDF 并跳到对应页
+            （PDF 阅读器里显示的页码 = 书内页码 + {nb.offset}）。英文原题名保留，旁附的中文说明为站内译名。
           </div>
         </section>
 

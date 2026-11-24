@@ -358,7 +358,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .file-row .fr-act { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .fr-pending { color: #B7C9DA; font-size: 12px; }
 
-/* ---------------- 课程资料目录（章 → 节，定位到 PDF 物理页）与页内导航 ---------------- */
+/* ---------------- 章节目录（课程资料 / 个人笔记共用：章 → 节，定位到 PDF 物理页）与页内导航 ---------------- */
 .sec[id] { scroll-margin-top: 70px; }   /* 吸顶页头不遮挡锚点目标 */
 .dos-note { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
 .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -366,6 +366,9 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .toc-meta { color: var(--muted); font-size: 12.5px; margin: -4px 0 12px; }
 .toc-intro { font-size: 13.5px; color: var(--ink); margin: 0 0 14px; max-width: 62em; }
 .toc { display: grid; gap: 10px; }
+/* 个人笔记目录：每个 Part 一组（Part 标签行 + 各章卡片），组内沿用同样的卡片间距 */
+.toc-part { display: grid; gap: 10px; }
+.toc-part .toc-meta { margin: 2px 2px -2px; }
 .toc-ch { background: #fff; border: 1.5px solid var(--line); border-radius: 10px; overflow: hidden; }
 .toc-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 11px 16px 9px; font-size: 14.5px; }
 .toc-no { font-weight: 800; color: var(--sky); min-width: 2.2em; }
@@ -403,6 +406,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
   grid-column: 1 / -1; background: linear-gradient(90deg, var(--deep), var(--navy));
   color: #fff; padding: 8px 18px; display: flex; justify-content: space-between; align-items: center;
   font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  flex-wrap: wrap; gap: 2px 14px;   /* 手机上两端文字放不下时折成两行，不挤在一起 */
 }
 .dossier.th-gehenna .dos-strip { background: linear-gradient(90deg, var(--gehenna), var(--gehenna-deep)); }
 .dos-photo {
@@ -454,7 +458,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .dos-k { flex: none; width: 108px; color: var(--muted); font-size: 13px; padding-top: 1px; }
 .dos-v { color: var(--ink); }
 .dos-v .muted { color: #B7C9DA; }
-/* 课程档案卡左侧：PDF 封面页图片（课程页统一用它代替徽记占位，站主 2026-11-24） */
+/* 档案卡左侧：PDF 页面图片（课程页 = 封面页，站主 2026-11-24；个人笔记页 = 指定的封面页，如 Basic PDE 的 Part I 扉页） */
 .dos-cover {
   display: block; width: 236px; max-width: 100%; height: auto;
   background: #fff; border: 1px solid #D5E2EE; border-radius: 3px;

@@ -1,6 +1,9 @@
 // 个人笔记学科数据 —— 六大学科 + 学院配色方案（站主 2026-11-23 确认）
 // 学院配色沿用 BlueArchiveMathBook 模板的七学院主题系统；id 一经发布保持稳定（pde 的已发布 URL 不变）
 // 结构（站主 2026-11-24 修订）：一门学科对应一本笔记，没有分册层——学科页即这本笔记的档案页（学科 → 章节）
+// 目录 JSON 由 tools/pdf-toc-to-json.mjs 从 PDF 书签生成，中文说明在 notebooks/<学科>.labels.json 里人工维护
+import pdeToc from './notebooks/pde.toc.json';
+
 export type SchoolTheme =
   | 'schale'
   | 'millennium'
@@ -10,10 +13,17 @@ export type SchoolTheme =
   | 'hyakkiyako'
   | 'abydos';
 
-export interface Chapter {
-  name: string;   // 章节名：英文原题名保留，可附中文
-  page: string;   // PDF 页码；尚未从 PDF 目录核对时为“待导入”
+// 目录条目：书内的 Part → 章 → 节（Part 只是书内目录的分组，不是分册层）
+// 页码口径与课程页一致：记 PDF 页脚标注的书内印刷页码，生成链接时再换算成 PDF 物理页（书内页码 + offset）
+export interface Section {
+  no: string;      // 书内编号（1.1 / 2.3）
+  title: string;   // 英文原题名
+  zh?: string;     // 中文说明（可选）
+  page: number;    // 书内印刷页码
 }
+export interface Chapter { no: string; title: string; zh?: string; page: number; sections: Section[] }
+export interface Part { no: string; title: string; zh?: string; page: number; chapters: Chapter[] }
+export interface FrontMatter { title: string; zh?: string; pdfPage: number }   // 前置页（序言等）用罗马页码，记 PDF 物理页
 
 // 学科对应的那本笔记；尚未提供笔记的学科不写此字段（学科页显示整理中的空状态）
 export interface Notebook {
@@ -23,12 +33,19 @@ export interface Notebook {
   series: string;     // 所属系列（笔记总题名），可跨学科
   lang: string;
   pages: number;      // PDF 总页数
+  size?: string;      // 展示用文件体积
   status: '整理中' | '已发布';
   prereq: string;
   audience: string;
-  version: string;
-  pdf?: string;       // PDF 的站内路径；缺省时下载按钮保持禁用
-  chapters: Chapter[];
+  version: string;    // 当前版本（取自 PDF 封面所载的修订日期）
+  scope?: string;     // 范围（几个 Part、多少章节）
+  pdf?: string;       // PDF 的站内路径；缺省时下载按钮保持禁用、目录条目不可点击
+  offset: number;     // PDF 物理页 = 书内页码 + offset（封面、序言、目录等前置页的页数）
+  coverImage?: string;      // 档案卡左侧的封面图（从 PDF 的某一页渲染；站主 2026-11-24：Basic PDE 用第 7 页）
+  coverPage?: number;       // 封面图对应的 PDF 物理页，点击时打开到这一页
+  coverSize?: [number, number];   // 封面图像素尺寸（防止图片加载时版面跳动）
+  front?: FrontMatter[];     // 前置页目录（序言等）
+  parts: Part[];             // 核心目录（目录 JSON 先过 tools/pdf-toc-check.mjs 自检书签页码再生成）
   preview: { label: string; tex: string }[];   // 网页数学环境预览（KaTeX 渲染）
 }
 
@@ -58,29 +75,27 @@ export const DISCIPLINES: Discipline[] = [
   { id: 'ode',        name: '常微分方程',     en: 'Ordinary Differential Equations',      short: 'ODE',                 theme: 'shanhaijing' },
   { id: 'pde', name: '基础偏微分方程', en: 'Basic Partial Differential Equations', short: 'Basic PDE', theme: 'gehenna',
     related: [{ kicker: '相关课程', title: 'MTH118 Analysis II', desc: '本科 · 2023–2024 S2 · 分析', href: '/courses/mth118/' }],
-    // Basic PDE 样本（规划 §6.4）——章节来自 302 页样本的目录结构
+    // Basic PDE 笔记（2026-11-24 导入）：294 页 PDF，书内 Part I 共 9 章 50 节；目录由书签生成并逐条核过页码
     notebook: {
       title: 'Basic Partial Differential Equations',
       titleZh: '偏微分方程基础',
       intro: '从分析准备与特征线出发，经二阶方程分类与三类经典方程，到弱导数与 Sobolev 空间。',
       series: 'The Unfinished Way',
       lang: '英文',
-      pages: 302,
-      status: '整理中',
+      pages: 294,
+      size: '5.2 MB',
+      status: '已发布',
       prereq: '数学分析、线性代数、常微分方程基础',
       audience: '本科高年级 / 研究生一年级',
-      version: '待核对（样本文件）',
-      chapters: [
-        { name: '分析准备 Preliminaries', page: '待导入' },
-        { name: '特征线 Method of Characteristics', page: '待导入' },
-        { name: 'Hamilton–Jacobi 方程与守恒律', page: '待导入' },
-        { name: '二阶方程的分类', page: '待导入' },
-        { name: 'Laplace / Poisson 方程', page: '待导入' },
-        { name: '热方程 Heat Equation', page: '待导入' },
-        { name: '波动方程 Wave Equation', page: '待导入' },
-        { name: 'Cauchy–Kovalevsky 定理', page: '待导入' },
-        { name: '弱导数与 Sobolev 空间', page: '待导入' },
-      ],
+      version: '2026-11-24 修订',
+      scope: 'Part I · 9 章 50 节',
+      pdf: '/notes/pde/basic-partial-differential-equations.pdf',
+      offset: pdeToc.offset,
+      coverImage: '/notes/pde/cover.jpg',   // 站主 2026-11-24：封面图用 PDF 第 7 页（Part I 扉页）
+      coverPage: 7,
+      coverSize: [910, 1287],
+      front: pdeToc.front ?? [],
+      parts: pdeToc.parts,
       preview: [
         { label: '热方程 HEAT', tex: '\\partial_t u - \\Delta u = 0 \\quad (\\Omega \\times (0,\\infty))' },
         { label: '波动方程 WAVE', tex: '\\partial_{tt} u - c^2 \\Delta u = 0' },
