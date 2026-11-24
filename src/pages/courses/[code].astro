@@ -9,6 +9,7 @@ import { COURSE_DOCS, PART_LABELS, type CourseDoc } from '../../data/course-docs
 // 课程详情页模板（代表样本 MTH118，2026-11-24 导入）：在 COURSE_DOCS 登记了资料文档的课程自动生成页面。
 // 页码口径：目录记的是 PDF 页脚的书内页码；链接用 PDF 物理页（书内页码 + offset）定位（规划 §4.3 / §12.1）。
 // 年份口径（站主 2026-11-24）：修读学期 = 站主实际上课的时间；笔记版本 = PDF 封面所载、最近一次修订对应的学年。
+// 档案卡左侧（站主 2026-11-24）：课程页统一放该课程 PDF 的封面页图片（doc.coverImage），点击打开 PDF。
 export function getStaticPaths() {
   return COURSES.filter((c) => c.code in COURSE_DOCS).map((c) => ({
     params: { code: c.code.toLowerCase() },
@@ -45,9 +46,18 @@ const no2 = (n: number) => String(n).padStart(2, '0');
       <div class="dossier">
         <div class="dos-strip"><span>Course Record · {course.code}</span><span>{course.year} {termShort}</span></div>
         <div class="dos-photo">
-          <Halo />
-          <span class="plate">{course.code}</span>
-          <span class="art-cap" style="position:static;transform:none;">课程徽记占位</span>
+          {doc.coverImage ? (
+            <a href={doc.pdf} target="_blank" rel="noopener" title="打开 PDF">
+              <img class="dos-cover" src={doc.coverImage} alt={`${course.code} ${course.title} 笔记 PDF 封面`} width="910" height="1287" />
+            </a>
+          ) : (
+            <>
+              <Halo />
+              <span class="plate">{course.code}</span>
+              <span class="art-cap" style="position:static;transform:none;">课程徽记占位</span>
+            </>
+          )}
+          {doc.coverImage && <span class="dos-cap">笔记 PDF 封面 · 点击打开</span>}
         </div>
         <div class="dos-info">
           <div class="dos-row"><span class="dos-k">课程代码</span><span class="dos-v">{course.code}</span></div>

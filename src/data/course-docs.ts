@@ -19,6 +19,7 @@ export interface CourseDoc {
   size: string;       // 展示用文件体积
   offset: number;     // PDF 物理页 = 书内页码 + offset；目录里一律记书内页码，生成链接时再换算（规划 §4.3）
   cover: { year: string; term: string; version: string; updated: string };  // PDF 封面 / 文档信息页所载的笔记版本
+  coverImage?: string;              // PDF 封面页图片（第 1 页渲染），档案卡左侧展示（站主 2026-11-24：课程页统一这样做）
   scope: string;      // 资料范围
   parts: TocPart[];
   notes?: Record<string, string>;   // 各分区的补充说明（来源、解答署名等），键为 Part 的 key
@@ -36,6 +37,7 @@ export const COURSE_DOCS: Record<string, CourseDoc> = {
   MTH118: {
     code: 'MTH118',
     pdf: '/courses/mth118/MTH118.pdf',
+    coverImage: '/courses/mth118/cover.png',
     pages: 248,
     size: '0.95 MB',
     offset: mth118Toc.offset,

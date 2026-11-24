@@ -454,6 +454,15 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
 .dos-k { flex: none; width: 108px; color: var(--muted); font-size: 13px; padding-top: 1px; }
 .dos-v { color: var(--ink); }
 .dos-v .muted { color: #B7C9DA; }
+/* 课程档案卡左侧：PDF 封面页图片（课程页统一用它代替徽记占位，站主 2026-11-24） */
+.dos-cover {
+  display: block; width: 236px; max-width: 100%; height: auto;
+  background: #fff; border: 1px solid #D5E2EE; border-radius: 3px;
+  box-shadow: 0 8px 18px rgba(18, 57, 95, 0.18);
+  transition: box-shadow .18s ease, border-color .18s ease;
+}
+a:hover .dos-cover { border-color: var(--sky); box-shadow: 0 10px 22px rgba(76, 179, 255, 0.4); }
+.dos-cap { font-size: 12px; color: var(--muted); }
 
 /* ---------------- 章节目录 ---------------- */
 .chap-list { counter-reset: chap; display: grid; gap: 8px; }
@@ -555,6 +564,7 @@ a.cut-card:hover, .cut-card.hov:hover { transform: translateY(-4px); filter: dro
   .dossier { grid-template-columns: 1fr; }
   .dos-photo { min-height: 220px; }
   .dos-photo { border-right: none; border-bottom: 1.5px dashed var(--line); }
+  .dos-cover { width: 160px; }
   .sec-no { font-size: 34px; }
   .foot-grid { grid-template-columns: 1fr; }
   .f-count { margin-left: 0; width: 100%; }
